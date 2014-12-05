@@ -17,3 +17,7 @@ dec_rep = range(1, 16)
 hex_rep = u"123456789ABCDEF"
 dec_hex = dict(zip(dec_rep, hex_rep))
 print(dec_hex)
+
+print(lab)
+lab_a = dict(zip(lab.keys(), [x.count(u"a") for x in map(lab.get, lab.keys())]))
+print(lab_a)
