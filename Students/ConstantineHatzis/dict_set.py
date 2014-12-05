@@ -21,3 +21,15 @@ print(dec_hex)
 print(lab)
 lab_a = dict(zip(lab.keys(), [x.count(u"a") for x in map(lab.get, lab.keys())]))
 print(lab_a)
+
+s1 = range(21)
+s2 = set([x for x in s1 if x % 2 == 0])
+s3 = set([x for x in s1 if x % 3 == 0])
+s4 = set([x for x in s1 if x % 4 == 0])
+
+print(s2)
+print(s3)
+print(s4)
+
+print(s3.issubset(s2))
+print(s4.issubset(s2))
