@@ -3,6 +3,8 @@ import io  # For file operations
 import string  # For string.punctuation
 import random
 
+# OOPS
+
 f = io.open('sherlock.txt', encoding='utf-8')
 text = f.read()
 f.close()
