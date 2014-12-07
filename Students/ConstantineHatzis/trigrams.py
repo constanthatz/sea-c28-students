@@ -29,46 +29,49 @@ for i in range(len(stripped_text)-2):
 
 
 def ask_for_words():
-    u"""Return the words that the user inputed plus a third word fromthe dictionary."""
+    u"""Return the words that the user inputed plus a random third word from
+        the dictionary as a list of strings."""
     try:
-        words = raw_input(u"Type two words, a punctuation mark (.?!,), or FIN to end your story: ")
+        words = raw_input(u"Type one word, two words, a punctuation mark (.?!,), or FIN to end your story: ")
     except (EOFError, KeyboardInterrupt):
-        return None
+        return u" FIN"
     else:
-        words = unicode(words)
+        u_words = unicode(words)
 
-        if words == u"FIN":
-            words_list = words
-        elif words == u"." or words == u"?" or words == "!" or words == ",":
-            words_list = list(words)
+        if u_words == u"FIN":
+            trigram = u" " + u_words
+        elif u_words == u"." or u_words == u"?" or u_words == u"!" or u_words == u",":
+            trigram = u_words
         else:
-            words_list = words.split()
+            list_u_words = u_words.split()
 
-            if len(words_list) != 2:
-                print(u"That was not {} words, try again: ".format(2))
-                words_list = ask_for_words()
+            if len(list_u_words) == 1:
+                trigram = u" " + u" ".join(list_u_words)
+            elif len(list_u_words) != 2:
+                print(u"That was not {} or {} words, try again: ".format(1, 2))
+                trigram = ask_for_words()
             else:
-                words = tuple([x.lower() for x in words_list])
-                if word_dict.get(words):
-                    next_word = random.choice(word_dict.get(words))
-                    words_list.append(next_word)
+                look_up_words = tuple([x.lower() for x in list_u_words])
+                if word_dict.get(look_up_words):
+                    next_word = random.choice(word_dict.get(look_up_words))
+                    list_u_words.append(next_word)
+                    trigram = u" " + u" ".join(list_u_words)
                 else:
                     print(u"You chose poorly, try again: ")
-                    words_list = ask_for_words()
-    return words_list
+                    trigram = ask_for_words()
+    return trigram
 
 
-def write_story(story_list):
-    word_combo = []
-    while word_combo != u"FIN":
-        word_combo = ask_for_words()
-        story_list += word_combo
-        story = " ".join(story_list)
+def write_story(story):
+    trigram = u""
+    while trigram != u" FIN":
+        trigram = ask_for_words()
+        story += trigram
         print(story)
     return story
 
-story_list = []
-story = write_story(story_list)
+story = ""
+story = write_story(story)
 print(story)
 
 if __name__ == "__main__":
