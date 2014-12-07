@@ -1,6 +1,7 @@
 from __future__ import print_function
 import io  # For file operations
 import string  # For string.punctuation
+import random
 
 f = io.open('sherlock_small.txt', encoding='utf-8')
 text = f.read()
@@ -28,12 +29,13 @@ for i in range(len(stripped_text)-2):
 
 
 def ask_for_words():
-    """ Return the words that the user inputted"""
+    u"""Return the words that the user inputted."""
     try:
         words = raw_input(u"Type two words: ")
     except (EOFError, KeyboardInterrupt):
         return None
     else:
+        words = unicode(words)
         split_words = tuple(words.lower().split())
 
         if len(split_words) != 2:
@@ -41,6 +43,17 @@ def ask_for_words():
             split_words = ask_for_words()
 
     return split_words
+
+
+def find_next_word(words, word_dict):
+    u"""Return the final word in the ___gram."""
+    if word_dict.get(words):
+        next_word = random.choice(word_dict.get(words))
+    else:
+        print(u"You chose poorly, try again: ")
+        words = ask_for_words()
+        next_word = find_next_word(words, word_dict)
+    return next_word
 
 
 if __name__ == "__main__":
