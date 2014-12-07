@@ -6,15 +6,14 @@ import random
 # OOPS
 
 f = io.open('sherlock.txt', encoding='utf-8')
-text = f.read()
+text = f.readlines()[52:12685]  #Read only lines that are Sherlock Holmnes stories
 f.close()
+text = " ".join(text)
 
 
 # Strip punctuation and newline characters from imported text to make creating
-# dictionary of word combinations easier. Make all word lowercase to help
-# eliminate case sensitivity later
-lower_text = text.lower()
-split_text = lower_text.split()
+# dictionary of word combinations easier.
+split_text = text.split()
 stripped_text = [i.strip(string.punctuation) for i in split_text]
 
 # Generate dictionary of every
@@ -34,20 +33,21 @@ story = ()
 
 
 def write_story(story, word_dict):
+    """ Return a story using trigrams usign a imported text."""
     pair = random.choice(word_dict.keys())  # Get starting point for story
     story += pair
 
     third = u"1"
     while third:
-        third = find_next_word(pair)
-        print(third)
-        story += (third,)
-        pair = story[-2:]
+        third = find_next_word(pair)  # Find the next word
+        story += (third,)  # Append the next word to the story
+        pair = story[-2:]  # Select the last two words to get the next one
 
     return story
 
 
 def find_next_word(pair):
+    """Return the next woprd based on two words using an imported text"""
     third = random.choice(word_dict.get(pair))
     return third
 
