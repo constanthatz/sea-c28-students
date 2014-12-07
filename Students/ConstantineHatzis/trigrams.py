@@ -27,6 +27,21 @@ for i in range(len(stripped_text)-2):
     word_dict.setdefault((first_word, second_word), []).append(third_word)
 
 
+def ask_for_words():
+    """ Return the words that the user inputted"""
+    try:
+        words = raw_input(u"Type two words: ")
+    except (EOFError, KeyboardInterrupt):
+        return None
+    else:
+        split_words = tuple(words.lower().split())
+
+        if len(split_words) != 2:
+            print(u"That was not two words, try again: ")
+            split_words = ask_for_words()
+
+    return split_words
+
 
 if __name__ == "__main__":
     text = "I wish I may I wish I might"
