@@ -6,8 +6,10 @@ import random
 # OOPS
 
 f = io.open('sherlock.txt', encoding='utf-8')
-text = f.readlines()[52:12685]  #Read only lines that are Sherlock Holmnes stories
+# Read only lines that are Sherlock Holmes stories
+text = f.readlines()[52:12685]
 f.close()
+# Join all the lines of text into one text string
 text = " ".join(text)
 
 
@@ -53,7 +55,6 @@ def find_next_word(pair):
 
 story = write_story(story, word_dict)
 print(" ".join(story))
-
 
 if __name__ == "__main__":
     text = "I wish I may I wish I might"
