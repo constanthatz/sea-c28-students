@@ -15,20 +15,25 @@ donors[u"Marie Curie"] = [1000, 3000]
 def original_prompt():
     """ Ask the user if they want to quit, send a thank you, create report """
     # Ask user what they want to do
-    prompt = u" 1: Send a Thank You \n 2: Create a Report \n q: Quit \n ?: "
     reply = raw_input(prompt)
     reply = unicode(reply)  # Convert input to unicode
 
-    if reply.lower() == u"q":
-        quit()
-    elif reply == u"1":
-        thank_you()
-    elif reply == u"2":
-        create_report()
+    try:
+        prompt = u" 1: Send Thank You \n 2: Create Report \n q: Quit \n ?: "
+        reply = raw_input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        return None
     else:
-        print(u"Not a valide choice, please choose again.")
-        reply = original_prompt()
-    return reply
+        if reply.lower() == u"q":
+            quit()
+        elif reply == u"1":
+            thank_you()
+        elif reply == u"2":
+            create_report()
+        else:
+            print(u"Not a valide choice, please choose again.")
+            reply = original_prompt()
+        return reply
 
 
 def thank_you():
