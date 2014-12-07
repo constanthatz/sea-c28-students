@@ -17,7 +17,7 @@ def first_level_prompt():
     # Ask user what they want to do
 
     try:
-        prompt = u" 1: Send Thank You \n 2: Create Report \n q: Quit \n ?: "
+        prompt = u" 1: Send a Thank You \n 2: Create a Report \n q: Quit \n ?: "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -41,10 +41,8 @@ def thank_you_prompt():
         donation create a thank you note. If it is a new donor, add the name to
         the list of donors. """
 
-    reply = raw_input(u"list of donors or name or quit")
-
     try:
-        prompt = u" 1: Donors \n 2: Name \n 3: Last Menu \n q: Quit \n ?: "
+        prompt = u"Full Name (q: quit, l: last menu): "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -53,36 +51,19 @@ def thank_you_prompt():
 
         if reply.lower() == u"q":
             quit()
-        elif reply == u"1":
-            reply = 1
-        elif reply == u"2":
-            reply = 2
-        elif reply == u"3":
+        elif reply == u"l":
             reply = first_level_prompt()
         else:
-            print(u"Not a valid choice, please choose again.")
-            reply = thank_you_prompt()
+            name, donation = name_donation(reply)
         return reply
 
-    if quit:
-        original_prompt()
-    elif reply_is_list_of_donors:
-        print(donors)
-    elif reply_is_name:
-        if name_is_old:
-            amount = new_donation()
-            compose_thank_you(name, amount)
-        else:
-            add_new_donor(name)
-            amount = new_donation()
-            compose_thank_you(name, amount)
-    return reply
 
-
-def new_donation(name, amount):
+def name_donation(name):
     """ Update donors dict with new donation """
-    update_donors_dict_with_amount
-    return amount
+    donors.setdefault(name, [])
+    donation = new_donation()
+    donors.get(name).append(donation)
+    return name, donation
 
 
 def add_new_donor(name):
