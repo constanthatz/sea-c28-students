@@ -3,7 +3,7 @@ import io  # For file operations
 import string  # For string.punctuation
 import random
 
-f = io.open('sherlock_small.txt', encoding='utf-8')
+f = io.open('sherlock.txt', encoding='utf-8')
 text = f.read()
 f.close()
 
@@ -12,7 +12,7 @@ f.close()
 # dictionary of word combinations easier. Make all word lowercase to help
 # eliminate case sensitivity later
 lower_text = text.lower()
-split_text = text.split()
+split_text = lower_text.split()
 stripped_text = [i.strip(string.punctuation) for i in split_text]
 
 # Generate dictionary of every
@@ -29,31 +29,34 @@ for i in range(len(stripped_text)-2):
 
 
 def ask_for_words():
-    u"""Return the words that the user inputted."""
+    u"""Return the words that the user inputed plus a third word fromthe dictionary."""
     try:
-        words = raw_input(u"Type two words: ")
+        words = raw_input(u"Type two words or a punctuation mark (.?!): ")
     except (EOFError, KeyboardInterrupt):
         return None
     else:
         words = unicode(words)
-        split_words = tuple(words.lower().split())
 
-        if len(split_words) != 2:
-            print(u"That was not two words, try again: ")
-            split_words = ask_for_words()
+        if words == u"." or words == u"?" or words == "!":
+            words_list = list(words)
+        else:
+            words_list = words.split()
 
-    return split_words
+            if len(words_list) != 2:
+                print(u"That was not {} words, try again: ".format(2))
+                words_list = ask_for_words()
+            else:
+                words = tuple([x.lower() for x in words_list])
+                if word_dict.get(words):
+                    next_word = random.choice(word_dict.get(words))
+                    words_list.append(next_word)
+                else:
+                    print(u"You chose poorly, try again: ")
+                    words_list = ask_for_words()
+    return words_list
 
-
-def find_next_word(words, word_dict):
-    u"""Return the final word in the ___gram."""
-    if word_dict.get(words):
-        next_word = random.choice(word_dict.get(words))
-    else:
-        print(u"You chose poorly, try again: ")
-        words = ask_for_words()
-        next_word = find_next_word(words, word_dict)
-    return next_word
+word_combo = ask_for_words()
+print(" ".join(word_combo))
 
 
 if __name__ == "__main__":
