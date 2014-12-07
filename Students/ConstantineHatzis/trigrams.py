@@ -31,13 +31,15 @@ for i in range(len(stripped_text)-2):
 def ask_for_words():
     u"""Return the words that the user inputed plus a third word fromthe dictionary."""
     try:
-        words = raw_input(u"Type two words or a punctuation mark (.?!): ")
+        words = raw_input(u"Type two words, a punctuation mark (.?!,), or FIN to end your story: ")
     except (EOFError, KeyboardInterrupt):
         return None
     else:
         words = unicode(words)
 
-        if words == u"." or words == u"?" or words == "!":
+        if words == u"FIN":
+            words_list = words
+        elif words == u"." or words == u"?" or words == "!" or words == ",":
             words_list = list(words)
         else:
             words_list = words.split()
@@ -55,9 +57,19 @@ def ask_for_words():
                     words_list = ask_for_words()
     return words_list
 
-word_combo = ask_for_words()
-print(" ".join(word_combo))
 
+def write_story(story_list):
+    word_combo = []
+    while word_combo != u"FIN":
+        word_combo = ask_for_words()
+        story_list += word_combo
+        story = " ".join(story_list)
+        print(story)
+    return story
+
+story_list = []
+story = write_story(story_list)
+print(story)
 
 if __name__ == "__main__":
     text = "I wish I may I wish I might"
