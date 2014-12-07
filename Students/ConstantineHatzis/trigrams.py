@@ -30,9 +30,11 @@ for i in range(len(stripped_text)-2):
 
 def ask_for_words():
     u"""Return the words that the user inputed plus a random third word from
-        the dictionary as a list of strings."""
+        the dictionary."""
     try:
-        words = raw_input(u"Type one word, two words, a punctuation mark (.?!,), or FIN to end your story: ")
+        prompt = u"""Type one word, two words, a punctuation mark (.?!,), or \
+FIN to end your story: """
+        words = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return u" FIN"
     else:
@@ -40,8 +42,11 @@ def ask_for_words():
 
         if u_words == u"FIN":
             trigram = u" " + u_words
-        elif u_words == u"." or u_words == u"?" or u_words == u"!" or u_words == u",":
+        elif u_words == u"." or u_words == u"?" or u_words == u"!" or \
+                u_words == u",":
             trigram = u_words
+        elif u_words == "":
+            trigram = u"\n"
         else:
             list_u_words = u_words.split()
 
