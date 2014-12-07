@@ -12,11 +12,9 @@ donors[u"Beric Dondarrion"] = [1000, 5000]
 donors[u"Marie Curie"] = [1000, 3000]
 
 
-def original_prompt():
+def first_level_prompt():
     """ Ask the user if they want to quit, send a thank you, create report """
     # Ask user what they want to do
-    reply = raw_input(prompt)
-    reply = unicode(reply)  # Convert input to unicode
 
     try:
         prompt = u" 1: Send Thank You \n 2: Create Report \n q: Quit \n ?: "
@@ -24,24 +22,47 @@ def original_prompt():
     except (EOFError, KeyboardInterrupt):
         return None
     else:
+        reply = unicode(reply)  # Convert input to unicode
+
         if reply.lower() == u"q":
             quit()
         elif reply == u"1":
-            thank_you()
+            reply = thank_you_prompt()
         elif reply == u"2":
-            create_report()
+            reply = 2
         else:
-            print(u"Not a valide choice, please choose again.")
-            reply = original_prompt()
+            print(u"Not a valid choice, please choose again.")
+            reply = first_level_prompt()
         return reply
 
 
-def thank_you():
+def thank_you_prompt():
     """ Prompt user to see the list of donors, or for a name of a donor, their
         donation create a thank you note. If it is a new donor, add the name to
         the list of donors. """
 
-    reply = ask_for_input(u"list of donors or name or quit")
+    reply = raw_input(u"list of donors or name or quit")
+
+    try:
+        prompt = u" 1: Donors \n 2: Name \n 3: Last Menu \n q: Quit \n ?: "
+        reply = raw_input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        return None
+    else:
+        reply = unicode(reply)  # Convert input to unicode
+
+        if reply.lower() == u"q":
+            quit()
+        elif reply == u"1":
+            reply = 1
+        elif reply == u"2":
+            reply = 2
+        elif reply == u"3":
+            reply = first_level_prompt()
+        else:
+            print(u"Not a valid choice, please choose again.")
+            reply = thank_you_prompt()
+        return reply
 
     if quit:
         original_prompt()
