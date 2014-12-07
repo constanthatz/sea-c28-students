@@ -8,7 +8,9 @@ f.close()
 
 
 # Strip punctuation and newline characters from imported text to make creating
-# dictionary of word combinations easier
+# dictionary of word combinations easier. Make all word lowercase to help
+# eliminate case sensitivity later
+lower_text = text.lower()
 split_text = text.split()
 stripped_text = [i.strip(string.punctuation) for i in split_text]
 
@@ -23,6 +25,7 @@ for i in range(len(stripped_text)-2):
     second_word = stripped_text[i+1]
     third_word = stripped_text[i+2]
     word_dict.setdefault((first_word, second_word), []).append(third_word)
+
 
 
 if __name__ == "__main__":
