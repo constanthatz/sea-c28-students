@@ -43,7 +43,7 @@ FIN to end your story: """
         if u_words == u"FIN":
             trigram = u" " + u_words
         elif u_words == u"." or u_words == u"?" or u_words == u"!" or \
-                u_words == u",":
+                u_words == u"," or u_words == u"\t":
             trigram = u_words
         elif u_words == "":
             trigram = u"\n"
