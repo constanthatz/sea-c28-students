@@ -165,5 +165,6 @@ def create_report():
     reply = first_level_prompt()  # Go back to original prompt
     return reply
 
-# Start the mailroom
-reply = first_level_prompt()
+if __name__ == '__main__':
+    # Start the mailroom
+    reply = first_level_prompt()
