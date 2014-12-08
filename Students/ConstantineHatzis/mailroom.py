@@ -17,7 +17,7 @@ def first_level_prompt():
     # Ask user what they want to do
 
     try:
-        prompt = u" 1: Send a Thank You \n 2: Create a Report \n q: Quit \n ?: "
+        prompt = u"\n1: Send a Thank You \n2: Create a Report \nq: Quit \n?: "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -31,7 +31,7 @@ def first_level_prompt():
         elif reply == u"2":
             reply = 2
         else:
-            print(u"Not a valid choice, please choose again.")
+            print(u"\nNot a valid choice, please choose again.")
             reply = first_level_prompt()
         return reply
 
@@ -42,7 +42,7 @@ def thank_you_prompt():
         the list of donors. """
 
     try:
-        prompt = u"Full Name (q: quit, s: start over): "
+        prompt = u"\nFull Name (q: quit, s: start over): "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -55,11 +55,12 @@ def thank_you_prompt():
             reply = first_level_prompt()
         elif reply.lower() == u"list":
             for x in donors.keys():
+                print(u"\n")
                 print(u"{}".format(x))
             reply = thank_you_prompt()
         else:
             name, donation = name_donation(reply)
-            compose_thank_you(name, donation)
+            reply = compose_thank_you(name, donation)
 
     return reply
 
@@ -75,7 +76,7 @@ def name_donation(name):
 def new_donation():
     """ Update donors dict with new donor """
     try:
-        prompt = u"Donation Amount (q: quit, s: start over): "
+        prompt = u"\nDonation Amount (q: quit, s: start over): "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -87,20 +88,24 @@ def new_donation():
         elif reply == u"s":
             reply = first_level_prompt()
             return reply
-        elif not reply.isnumeric():
-            print(u"That is not a number, please try again.")
-            donation = new_donation()
         else:
-            donation = float(reply)
-
+            try:
+                donation = float(reply)
+            except ValueError:
+                print(u"\nThat is not a number, please try again.")
+                donation = new_donation()
+            else:
+                donation = donation
     return donation
 
 
 def compose_thank_you(name, donation):
     """ Compose thank you email, print it, and return to original prompt """
 
-    print(u"{}, thank you for your generous donation of ${:.2f}.".format(name, donation))
-    reply = first_level_prompt
+    print(u"\n {}, thank you for your generous donation of ${:.2f}.".format(name, donation))
+    reply = first_level_prompt()
     return reply
+
+
 
 reply = first_level_prompt()
