@@ -118,14 +118,12 @@ def create_report():
         average_donation = total_donations / number_donations
         report_matrix[x] = [total_donations, number_donations, average_donation]
 
-    header = u"Donor\t\tTotal Donations\t\ttNumber of Donations\t\tAverage Donations"
-    sep_length = len(header)
-    sep = u"="*sep_length
-    print(header + u"\n")
-    print(sep + u"\n")
+    header = [u"Donor", u"Total Donations", u"Number of Donations", u"Average Donations"]
+
+    print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*header))
 
     for x in report_matrix:
-        print(u"{}\t\t{}\t\t{}\t\t{}\n".format(x, report_matrix[x][0], report_matrix[x][1], report_matrix[x][2]))
+        print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(x, "${:.2f}".format(report_matrix[x][0]), report_matrix[x][1], "${:.2f}".format(report_matrix[x][2])))
     reply = first_level_prompt()
     return reply
 
