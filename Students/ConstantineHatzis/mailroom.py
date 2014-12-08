@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import division
+from operator import itemgetter
 
 # Data structure for donors and donations using dictionary
 donors = {}
@@ -81,6 +82,7 @@ def name_donation(name):
     donors.setdefault(name, [])  # Add name to donor list if not in list
     donation = new_donation()  # Ask for donation amount
     donors.get(name).append(donation)  # Add donation amont to donor list
+    print(donors)
     return name, donation
 
 
@@ -115,7 +117,7 @@ def compose_thank_you(name, donation):
     """Print thank you email from template"""
 
     # Email template
-    template = u"\n\t{}, thank you for your generous donation of${:.2f}." \
+    template = u"\n\t{}, thank you for your generous donation of ${:.2f}." \
         .format(name, donation)
     print(template)
     reply = first_level_prompt()  # Go back to original prompt
@@ -125,27 +127,38 @@ def compose_thank_you(name, donation):
 def create_report():
     """Return a report of all donors, average donation amount, number of
     donations, and total donations"""
-    report_matrix = {}  # Initialize report data dictionary
+    report_matrix = []  # Initialize report data dictionary
 
     for x in donors:
+        donor = x
         donations = donors[x]  # List of donations
         total_donations = sum(donations)  # Total donations
         number_donations = len(donations)  # Total number of donations
         avg_donation = total_donations / number_donations  # Average donation
-        report_matrix[x] = [total_donations, number_donations, avg_donation]
+        report_matrix += [[
+                          donor, total_donations,
+                          number_donations,
+                          avg_donation]]
+
+    # Sort report matrix by total donor amount in decending order.
+    sorted_report_matrix = sorted(
+        report_matrix, key=itemgetter(1), reverse=True)
 
     # Column titles
     header = [u"Donor", u"Total Donations", u"Number of Donations",
-              u"Average Donations"]
+              u"Average Donation"]
 
     # Print column titles
     print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*header))
-    for x in report_matrix:  # Print table
+    for x in range(len(report_matrix)):  # Print table
 
         # Format report data so that I can right align in the columns when I
         # print the table, but still have the dollar sign next to the numbers
-        args = [x, "${:.2f}".format(report_matrix[x][0]), report_matrix[x][1],
-                "${:.2f}".format(report_matrix[x][2])]
+        args = [
+            sorted_report_matrix[x][0],
+            "${:.2f}".format(sorted_report_matrix[x][1]),
+            sorted_report_matrix[x][2],
+            "${:.2f}".format(sorted_report_matrix[x][3])]
 
         print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*args))
 
