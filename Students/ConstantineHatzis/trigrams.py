@@ -33,20 +33,19 @@ for i in range(len(stripped_text)-2):
     word_dict.setdefault((first_word, second_word), []).append(third_word)
 
 
-story = ()
-
-
 def write_story(story, word_dict):
-    """ Return a story using trigrams usign a imported text."""
+    """Return a story using trigrams usign a imported text."""
     pair = random.choice(word_dict.keys())  # Get starting point for story
     story += pair
 
+    # The while will run until a next word can't be found, and the story ends.
     third = u"1"
     while third:
         third = find_next_word(pair)  # Find the next word
         story += (third,)  # Append the next word to the story
         pair = story[-2:]  # Select the last two words to get the next one
 
+    story += (u"\n\nFIN.",)
     return story
 
 
@@ -56,6 +55,7 @@ def find_next_word(pair):
     return third
 
 if __name__ == "__main__":
+    story = ()
     story = write_story(story, word_dict)
     print(" ".join(story))
-    print(len(story))
+    print(u"\n This story is {} words long.".format(len(story)))
