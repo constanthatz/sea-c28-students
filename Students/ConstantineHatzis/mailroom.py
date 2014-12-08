@@ -96,3 +96,5 @@ def compose_thank_you(name, donation):
     print(u"{}, thank you for your generous donation of ${}.".format(name, donation))
     reply = first_level_prompt
     return reply
+
+reply = first_level_prompt()
