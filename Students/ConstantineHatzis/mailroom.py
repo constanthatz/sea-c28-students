@@ -42,7 +42,7 @@ def thank_you_prompt():
         the list of donors. """
 
     try:
-        prompt = u"Full Name (q: quit, l: last menu): "
+        prompt = u"Full Name (q: quit, s: start over): "
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
         return None
@@ -51,46 +51,48 @@ def thank_you_prompt():
 
         if reply.lower() == u"q":
             quit()
-        elif reply == u"l":
+        elif reply == u"s":
             reply = first_level_prompt()
         else:
             name, donation = name_donation(reply)
-        return reply
+            compose_thank_you(name, donation)
+
+    return reply
 
 
 def name_donation(name):
-    """ Update donors dict with new donation """
+    """ Update donors dict with new donation and name if necessary"""
     donors.setdefault(name, [])
     donation = new_donation()
     donors.get(name).append(donation)
     return name, donation
 
 
-def add_new_donor(name):
+def new_donation():
     """ Update donors dict with new donor """
-    update_donors_dict_with_name
-    return name
+    try:
+        prompt = u"Donation Amount (q: quit, s: start over): "
+        reply = raw_input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        return None
+    else:
+        reply = unicode(reply)  # Convert input to unicode
+
+        if reply.lower() == u"q":
+            quit()
+        elif reply == u"s":
+            reply = first_level_prompt()
+            return reply
+        elif not reply.isnumeric():
+            print(u"That is not a number, please try again.")
+            donation = new_donation()
+
+    return donation
 
 
-def compose_thank_you(name, amount):
+def compose_thank_you(name, donation):
     """ Compose thank you email, print it, and return to original prompt """
 
-    print(thank_you_letter, name, amount)
-    original_prompt
-    return name, amount
-
-
-def create_report():
-    """ Create report of donors and donations after calculating the total
-        donations, numbder of donations, and average donations for each
-        donor and print them in order of total donations """
-    total_donation = calculate_total_donation
-    numder_donations = calculate_number_of_donations
-    average_donation = calculate_average_donation
-
-    (print(donors_in_nice_table, total_donation, numder_donations,
-           average_donation))
-    original_prompt()
-    return total_donation, numder_donations, average_donation
-
-original_prompt()
+    print(u"{}, thank you for your generous donation of ${}.".format(name, donation))
+    reply = first_level_prompt
+    return reply
