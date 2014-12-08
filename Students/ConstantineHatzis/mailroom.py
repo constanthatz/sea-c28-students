@@ -32,13 +32,16 @@ def first_level_prompt():
 
     reply = unicode(reply)  # Convert input to unicode
 
-    if reply.lower() == u"q":
+    # Parse user input. "q" for quit, "1" to write thank you email
+    # "2" to create report, and catch invalid choices
+    if reply.lower() == u"q":  # Quit mailroom
         quit()
     elif reply == u"1":
-        reply = thank_you_prompt()
+        reply = thank_you_prompt()  # Create thank you email
     elif reply == u"2":
-        reply = create_report()
+        reply = create_report()  # Create donor report
     else:
+        # Reject invalid choice
         print(u"\nNot a valid choice, please choose again.")
         reply = first_level_prompt()
     return reply
@@ -49,96 +52,105 @@ def thank_you_prompt():
         name and their donation amount and create a thank you note. If it is a
         new donor, add their name to the list of donors."""
 
-    try:
-        prompt = u"\nFull Name (q: quit, s: start over): "
-        reply = raw_input(prompt)
-    except (EOFError, KeyboardInterrupt):
-        return None
-    else:
-        reply = unicode(reply)  # Convert input to unicode
+    # Ask user what they want to do
+    prompt = u"\nFull Name (q: quit, s: start over): "
+    reply = safe_input(prompt)
 
-        if reply.lower() == u"q":
-            quit()
-        elif reply == u"s":
-            reply = first_level_prompt()
-        elif reply.lower() == u"list":
-            for x in donors.keys():
-                print(u"\n")
-                print(u"{}".format(x))
-            reply = thank_you_prompt()
-        else:
-            name, donation = name_donation(reply)
-            reply = compose_thank_you(name, donation)
+    reply = unicode(reply)  # Convert input to unicode
+
+    # Parse user input. "q" for quit, "s" back to start over
+    # "list" to see donors, or donor name
+    if reply.lower() == u"q":  # Quit mailroom
+        quit()
+    elif reply == u"s":  # Go back to first prompt
+        reply = first_level_prompt()
+    elif reply.lower() == u"list":  # Print list of donors and return to prompt
+        print(u"\n")
+        for x in donors.keys():
+            print(u"{}".format(x))
+        reply = thank_you_prompt()
+    else:
+        name, donation = name_donation(reply)  # Check user inputted name
+        reply = compose_thank_you(name, donation)  # Compose thank you email
 
     return reply
 
 
 def name_donation(name):
     """Return name of donor and their donation amount."""
-    donors.setdefault(name, [])
-    donation = new_donation()
-    donors.get(name).append(donation)
+    donors.setdefault(name, [])  # Add name to donor list if not in list
+    donation = new_donation()  # Ask for donation amount
+    donors.get(name).append(donation)  # Add donation amont to donor list
     return name, donation
 
 
 def new_donation():
     """Return donation amount."""
-    try:
-        prompt = u"\nDonation Amount (q: quit, s: start over): "
-        reply = raw_input(prompt)
-    except (EOFError, KeyboardInterrupt):
-        return None
-    else:
-        reply = unicode(reply)  # Convert input to unicode
 
-        if reply.lower() == u"q":
-            quit()
-        elif reply == u"s":
-            reply = first_level_prompt()
-            return reply
+    # Ask user what they want to do
+    prompt = u"\nDonation Amount (q: quit, s: start over): "
+    reply = safe_input(prompt)
+
+    reply = unicode(reply)  # Convert input to unicode
+
+    # Parse user input. "q" for quit, "s" back to start over
+    # donation amount
+    if reply.lower() == u"q":  # Quit mailroom
+        quit()
+    elif reply == u"s":  # Go back to original prompt
+        reply = first_level_prompt()
+        return reply
+    else:  # Validate user input as a real number
+        try:
+            donation = float(reply)
+        except ValueError:
+            print(u"\nThat is not a number, please try again.")
+            donation = new_donation()
         else:
-            try:
-                donation = float(reply)
-            except ValueError:
-                print(u"\nThat is not a number, please try again.")
-                donation = new_donation()
-            else:
-                donation = donation
+            donation = donation
     return donation
 
 
 def compose_thank_you(name, donation):
     """Print thank you email from template"""
 
+    # Email template
     template = u"\n\t{}, thank you for your generous donation of${:.2f}." \
         .format(name, donation)
     print(template)
-    reply = first_level_prompt()
+    reply = first_level_prompt()  # Go back to original prompt
     return reply
 
 
 def create_report():
     """Return a report of all donors, average donation amount, number of
     donations, and total donations"""
-    report_matrix = {}
+    report_matrix = {}  # Initialize report data dictionary
+
     for x in donors:
-        donations = donors[x]
-        total_donations = sum(donations)
-        number_donations = len(donations)
-        avg_donation = total_donations / number_donations
+        donations = donors[x]  # List of donations
+        total_donations = sum(donations)  # Total donations
+        number_donations = len(donations)  # Total number of donations
+        avg_donation = total_donations / number_donations  # Average donation
         report_matrix[x] = [total_donations, number_donations, avg_donation]
 
+    # Column titles
     header = [u"Donor", u"Total Donations", u"Number of Donations",
               u"Average Donations"]
 
+    # Print column titles
     print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*header))
-    for x in report_matrix:
+    for x in report_matrix:  # Print table
+
+        # Format report data so that I can right align in the columns when I
+        # print the table, but still have the dollar sign next to the numbers
         args = [x, "${:.2f}".format(report_matrix[x][0]), report_matrix[x][1],
                 "${:.2f}".format(report_matrix[x][2])]
+
         print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*args))
 
-    reply = first_level_prompt()
+    reply = first_level_prompt()  # Go back to original prompt
     return reply
 
-
+# Start the mailroom
 reply = first_level_prompt()
