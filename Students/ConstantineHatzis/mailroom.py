@@ -4,12 +4,12 @@ import io
 
 # Data structure for donors and donations using dictionary
 donors = {}
-donors[u"John Doe"] = [1000, 500, 5000]
-donors[u"Jane Doe"] = [1000]
-donors[u"Diane Prince"] = [30000, 15000]
-donors[u"Indiana Jones"] = [300, 100, 200]
-donors[u"Beric Dondarrion"] = [1000, 5000]
-donors[u"Marie Curie"] = [1000, 3000]
+donors[u"John Doe"] = [1010.75, 537.15, 5300]
+donors[u"Jane Doe"] = [1234]
+donors[u"Diana Prince"] = [30730.11, 15300.25]
+donors[u"Indiana Jones"] = [301, 130.13, 201.95]
+donors[u"Beric Dondarrion"] = [1320.67, 5020.34]
+donors[u"Marie Curie"] = [1000, 3200.50]
 
 
 def first_level_prompt():
@@ -90,6 +90,8 @@ def new_donation():
         elif not reply.isnumeric():
             print(u"That is not a number, please try again.")
             donation = new_donation()
+        else:
+            donation = float(reply)
 
     return donation
 
@@ -97,7 +99,7 @@ def new_donation():
 def compose_thank_you(name, donation):
     """ Compose thank you email, print it, and return to original prompt """
 
-    print(u"{}, thank you for your generous donation of ${}.".format(name, donation))
+    print(u"{}, thank you for your generous donation of ${:.2f}.".format(name, donation))
     reply = first_level_prompt
     return reply
 
