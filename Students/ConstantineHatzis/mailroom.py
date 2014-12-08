@@ -53,6 +53,10 @@ def thank_you_prompt():
             quit()
         elif reply == u"s":
             reply = first_level_prompt()
+        elif reply.lower() == u"list":
+            for x in donors.keys():
+                print(u"{}".format(x))
+            reply = thank_you_prompt()
         else:
             name, donation = name_donation(reply)
             compose_thank_you(name, donation)
