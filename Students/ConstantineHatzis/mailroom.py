@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from __future__ import division
 import io
 
 # Data structure for donors and donations using dictionary
 donors = {}
-donors[u"John Doe"] = [1010.75, 537.15, 5300]
+donors[u"John Doe"] = [1010.75, 537.25, 5300]
 donors[u"Jane Doe"] = [1234]
-donors[u"Diana Prince"] = [30730.11, 15300.25]
-donors[u"Indiana Jones"] = [301, 130.13, 201.95]
-donors[u"Beric Dondarrion"] = [1320.67, 5020.34]
+donors[u"Diana Prince"] = [30730.25, 15300.25]
+donors[u"Indiana Jones"] = [301, 130.50, 201.75]
+donors[u"Beric Dondarrion"] = [1320.75, 5020.25]
 donors[u"Marie Curie"] = [1000, 3200.50]
 
 
@@ -29,7 +30,7 @@ def first_level_prompt():
         elif reply == u"1":
             reply = thank_you_prompt()
         elif reply == u"2":
-            reply = 2
+            reply = create_report()
         else:
             print(u"\nNot a valid choice, please choose again.")
             reply = first_level_prompt()
@@ -102,10 +103,31 @@ def new_donation():
 def compose_thank_you(name, donation):
     """ Compose thank you email, print it, and return to original prompt """
 
-    print(u"\n {}, thank you for your generous donation of ${:.2f}.".format(name, donation))
+    print(u"\n\t{}, thank you for your generous donation of ${:.2f}.".format(name, donation))
     reply = first_level_prompt()
     return reply
 
+
+def create_report():
+    """Return a report of all donors, average donation amoutn, number of donations, and total donations"""
+    report_matrix = {}
+    for x in donors:
+        donations = donors[x]
+        total_donations = sum(donations)
+        number_donations = len(donations)
+        average_donation = total_donations / number_donations
+        report_matrix[x] = [total_donations, number_donations, average_donation]
+
+    header = u"Donor\t\tTotal Donations\t\ttNumber of Donations\t\tAverage Donations"
+    sep_length = len(header)
+    sep = u"="*sep_length
+    print(header + u"\n")
+    print(sep + u"\n")
+
+    for x in report_matrix:
+        print(u"{}\t\t{}\t\t{}\t\t{}\n".format(x, report_matrix[x][0], report_matrix[x][1], report_matrix[x][2]))
+    reply = first_level_prompt()
+    return reply
 
 
 reply = first_level_prompt()
