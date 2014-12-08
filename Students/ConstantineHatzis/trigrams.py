@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import io  # For file operations
 import string  # For string.punctuation
@@ -53,8 +55,7 @@ def find_next_word(pair):
     third = random.choice(word_dict.get(pair))
     return third
 
-story = write_story(story, word_dict)
-print(" ".join(story))
-
 if __name__ == "__main__":
-    text = "I wish I may I wish I might"
+    story = write_story(story, word_dict)
+    print(" ".join(story))
+    print(len(story))
