@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import io  # For file operations
 import string  # For string.punctuation
@@ -74,12 +76,10 @@ def write_story(story):
     while trigram != u" FIN":
         trigram = ask_for_words()
         story += trigram
-        print(story)
+        print("\n" + story + "\n")
     return story
 
-story = ""
-story = write_story(story)
-print(story)
-
 if __name__ == "__main__":
-    text = "I wish I may I wish I might"
+    story = ""
+    story = write_story(story)
+    print(story)
