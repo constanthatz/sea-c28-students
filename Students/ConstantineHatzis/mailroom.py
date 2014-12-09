@@ -82,7 +82,6 @@ def name_donation(name):
     donors.setdefault(name, [])  # Add name to donor list if not in list
     donation = new_donation()  # Ask for donation amount
     donors.get(name).append(donation)  # Add donation amont to donor list
-    print(donors)
     return name, donation
 
 
