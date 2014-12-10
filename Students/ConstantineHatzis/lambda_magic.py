@@ -4,6 +4,7 @@ from __future__ import print_function
 
 
 def function_builder(n):
+    """Return a list of sequential functions."""
     return [lambda x, y=i: x + y for i in range(n)]
 
 if __name__ == "__main__":
