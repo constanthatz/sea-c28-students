@@ -27,3 +27,22 @@ print(dec_hex2)
 # Task 4
 food_prefs1 = {key: value.count(u"a") for key, value in food_prefs.iteritems()}
 print(food_prefs1)
+
+# Task 5
+# 5.1
+s2 = {i for i in range(21) if i % 2 == 0}
+s3 = {i for i in range(21) if i % 3 == 0}
+s4 = {i for i in range(21) if i % 4 == 0}
+print(s2)
+print(s3)
+print(s4)
+
+# 5.2
+s = []
+for j in range(2, 5):
+    s += [{i for i in range(21) if i % j == 0}]
+print(s)
+
+# 5.3
+s = [{i for i in range(21) if i % j == 0} for j in range(2, 5)]
+print(s)
