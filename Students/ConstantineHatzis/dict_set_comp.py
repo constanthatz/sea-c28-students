@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-food_prefs = {"name": u"Cronstantine",
+food_prefs = {"name": u"Constantine",
               u"city": u"Seattle",
               u"cake": u"chocolate",
               u"fruit": u"watermelon",
@@ -10,5 +10,12 @@ food_prefs = {"name": u"Cronstantine",
               u"lunch": u"Caribbean roast sandwich",
               u"dinner": u"Korean BBQ"}
 
+# Task 1
 print(u"{name} is from {city}, and he likes {cake}, {fruit}, {pie}, {pasta}, \
 {breakfast}, {lunch}, and {dinner}.".format(**food_prefs))
+
+# Task 2
+deci = [i for i in range(16)]
+hexi = [hex(i) for i in deci]
+dec_hex1 = dict(zip(deci, hexi))
+print(dec_hex1)
