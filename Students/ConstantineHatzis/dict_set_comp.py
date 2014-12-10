@@ -19,3 +19,7 @@ deci = [i for i in range(16)]
 hexi = [hex(i) for i in deci]
 dec_hex1 = dict(zip(deci, hexi))
 print(dec_hex1)
+
+# Task 3
+dec_hex2 = {i: hex(i) for i in range(16)}
+print(dec_hex2)
