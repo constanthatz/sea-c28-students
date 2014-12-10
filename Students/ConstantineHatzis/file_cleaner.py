@@ -31,11 +31,20 @@ def file_open():
 
 def cleanfile_map(text):
     """Return a list of the lines of the input file without trailing and
-    leading whitespaces."""
+    leading whitespaces using map."""
     return map(unicode.strip, text)
+
+
+def cleanfile_comp(text):
+    """Return a list of the lines of the input file without trailing and
+    leading whitespaces use comprehension."""
+    return [line.strip() for line in text]
+
 
 if __name__ == '__main__':
     mode = safe_input()
     text = file_open()
     text_clean_map = cleanfile_map(text)
     print(text_clean_map, end="\n\n")
+    text_clean_comp = cleanfile_comp(text)
+    print(text_clean_comp, end="\n\n")
