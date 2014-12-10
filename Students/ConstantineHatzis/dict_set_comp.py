@@ -23,3 +23,7 @@ print(dec_hex1)
 # Task 3
 dec_hex2 = {i: hex(i) for i in range(16)}
 print(dec_hex2)
+
+# Task 4
+food_prefs1 = {key: value.count(u"a") for key, value in food_prefs.iteritems()}
+print(food_prefs1)
