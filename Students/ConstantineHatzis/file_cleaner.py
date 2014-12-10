@@ -20,17 +20,16 @@ to (o)verwrite the original, or (q)uit? :")
     return mode
 
 
-def file_open(mode):
+def file_open():
     """Open, read input file and create new output file if necessary."""
     filename = sys.argv[1]
-    if mode == u"o":
-        f = io.open(filename, mode="w+", encoding='utf-8')
-    elif mode == u"n":
-        f = io.open(filename, encoding='utf-8')
-        f.close()
-    return f.readlines()
+    f = io.open(filename, encoding='utf-8')
+    text = f.readlines()
+    print(text)
+    f.close
+    return text
 
 if __name__ == '__main__':
     mode = safe_input()
-    text = file_open(mode)
+    text = file_open()
     print(text)
