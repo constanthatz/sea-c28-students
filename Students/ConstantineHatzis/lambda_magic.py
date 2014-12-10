@@ -2,11 +2,10 @@ from __future__ import print_function
 
 
 def function_builder(n):
-    the_list = [lambda x, y=i: x + y for i in range(n)]
-    return the_list
+    return [lambda x, y=i: x + y for i in range(n)]
 
 if __name__ == "__main__":
-    n = 4
-    the_list = function_builder(4)
-    for i in range(n):
-        print([the_list[i](j) for j in range(10)])
+    n = 10
+    the_list = function_builder(n)
+    for f in the_list:
+        print([f(j) for j in range(10)])
