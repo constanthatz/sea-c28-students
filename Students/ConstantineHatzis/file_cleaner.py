@@ -21,15 +21,21 @@ to (o)verwrite the original, or (q)uit? :")
 
 
 def file_open():
-    """Open, read input file and create new output file if necessary."""
+    """Return list of lines of text file."""
     filename = sys.argv[1]
     f = io.open(filename, encoding='utf-8')
     text = f.readlines()
-    print(text)
     f.close
     return text
+
+
+def cleanfile_map(text):
+    """Return a list of the lines of the input file without trailing and
+    leading whitespaces."""
+    return map(unicode.strip, text)
 
 if __name__ == '__main__':
     mode = safe_input()
     text = file_open()
-    print(text)
+    text_clean_map = cleanfile_map(text)
+    print(text_clean_map, end="\n\n")
