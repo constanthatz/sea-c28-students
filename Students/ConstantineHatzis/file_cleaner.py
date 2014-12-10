@@ -29,3 +29,7 @@ def file_open(mode):
         f = io.open(filename, encoding='utf-8')
         f.close()
     return f.readlines()
+
+if __name__ == '__main__':
+    mode = safe_input()
+    text = file_open(mode)
