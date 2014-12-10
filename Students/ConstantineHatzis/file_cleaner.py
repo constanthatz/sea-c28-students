@@ -14,7 +14,7 @@ to (o)verwrite the original, or (q)uit? :")
         mode = unicode(mode)
         if mode.lower() == u"q":
             quit()
-        elif mode.lower() != u"n" or mode.lower() != u"o":
+        elif mode.lower() != u"n" and mode.lower() != u"o":
             print(u"Invalid input, please try again")
             mode = safe_input()
     return mode
@@ -33,3 +33,4 @@ def file_open(mode):
 if __name__ == '__main__':
     mode = safe_input()
     text = file_open(mode)
+    print(text)
