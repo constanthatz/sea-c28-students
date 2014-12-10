@@ -26,7 +26,7 @@ def file_open():
     f = io.open(filename, encoding='utf-8')
     text = f.readlines()
     f.close
-    return text
+    return text, filename
 
 
 def cleanfile_map(text):
@@ -41,10 +41,21 @@ def cleanfile_comp(text):
     return [line.strip() for line in text]
 
 
+def file_write(mode, clean_text, filename):
+    """Write cleaned lines to a either a new file or overwrite orignal file."""
+    if mode == u"n":
+        filename_prefix = raw_input("Output file name: ")
+        filename = filename_prefix + ".txt"
+
+    g = io.open(filename, "w")
+    g.writelines(clean_text)
+    g.close()
+
 if __name__ == '__main__':
     mode = safe_input()
-    text = file_open()
-    text_clean_map = cleanfile_map(text)
-    print(text_clean_map, end="\n\n")
-    text_clean_comp = cleanfile_comp(text)
-    print(text_clean_comp, end="\n\n")
+    text, filename = file_open()
+    clean_text_map = cleanfile_map(text)
+    print(clean_text_map, end="\n\n")
+    clean_text_comp = cleanfile_comp(text)
+    print(clean_text_comp, end="\n\n")
+    file_write(mode, clean_text_comp, filename)
