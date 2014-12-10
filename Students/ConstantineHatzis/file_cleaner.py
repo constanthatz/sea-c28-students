@@ -29,23 +29,22 @@ def file_open():
     return text, filename
 
 
-def cleanfile_map(text):
+def clean_file_map(text):
     """Return a list of the lines of the input file without trailing and
     leading whitespaces using map."""
-    return map(unicode.strip, text)
+    return map(lambda x: x.strip() + u"\n", text)
 
 
-def cleanfile_comp(text):
+def clean_file_comp(text):
     """Return a list of the lines of the input file without trailing and
     leading whitespaces use comprehension."""
-    return [line.strip() for line in text]
+    return [line.strip() + u"\n" for line in text]
 
 
 def file_write(mode, clean_text, filename):
     """Write cleaned lines to a either a new file or overwrite orignal file."""
     if mode == u"n":
-        filename_prefix = raw_input("Output file name: ")
-        filename = filename_prefix + ".txt"
+        filename = raw_input("Output file name: ")
 
     g = io.open(filename, "w")
     g.writelines(clean_text)
@@ -54,8 +53,9 @@ def file_write(mode, clean_text, filename):
 if __name__ == '__main__':
     mode = safe_input()
     text, filename = file_open()
-    clean_text_map = cleanfile_map(text)
+    print()
+    clean_text_map = clean_file_map(text)
     print(clean_text_map, end="\n\n")
-    clean_text_comp = cleanfile_comp(text)
+    clean_text_comp = clean_file_comp(text)
     print(clean_text_comp, end="\n\n")
     file_write(mode, clean_text_comp, filename)
