@@ -20,9 +20,12 @@ to (o)verwrite the original, or (q)uit? :")
     return mode
 
 
-filename = sys.argv[1]
-f = io.open(filename, mode="+", encoding='utf-8')
-text = f.readlines()
-f.close()
-
-print(text)
+def file_open(mode):
+    """Open, read input file and create new output file if necessary."""
+    filename = sys.argv[1]
+    if mode == u"o":
+        f = io.open(filename, mode="w+", encoding='utf-8')
+    elif mode == u"n":
+        f = io.open(filename, encoding='utf-8')
+        f.close()
+    return f.readlines()
