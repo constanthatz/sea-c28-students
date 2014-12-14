@@ -17,3 +17,20 @@ class Element(object):  # change list to object and solve the problem
             [u"{:4}".format(u"") + x for x in self.contents] + \
             [self.closing_tag]
         file_out.write("\n".join(all_out))
+
+
+class Html(Element):
+    opening_tag = u"<html>"
+    closing_tag = u"</html>"
+
+
+class Body(Element):
+    opening_tag = u"<body>"
+    closing_tag = u"</body>"
+
+
+class P(Element):
+    opening_tag = u"<p>"
+    closing_tag = u"</p>"
+
+
