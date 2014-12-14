@@ -9,9 +9,11 @@ class Element(object):  # change list to object and solve the problem
     def __init__(self):
         self.contents = []
 
-    def append(self,string):
-    	self.contents.append(string)
+    def append(self, string):
+        self.contents.append(string)
 
-    def render(self,file_out, ind = ""):
-        all_out = [self.opening_tag] + [u"{:4}".format(u"") + x for x in self.contents] + [self.closing_tag]
-     	file_out.write("\n".join(all_out))
+    def render(self, file_out, ind=""):
+        all_out = [self.opening_tag] + \
+            [u"{:4}".format(u"") + x for x in self.contents] + \
+            [self.closing_tag]
+        file_out.write("\n".join(all_out))
