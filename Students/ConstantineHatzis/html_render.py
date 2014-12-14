@@ -6,7 +6,7 @@ class Element(object):  # change list to object and solve the problem
     closing_tag = u"</>"
     indent = ""
 
-    def __init__(self):
+    def __init__(self, contents=None):
         self.contents = []
 
     def append(self, string):
@@ -32,5 +32,3 @@ class Body(Element):
 class P(Element):
     opening_tag = u"<p>"
     closing_tag = u"</p>"
-
-
