@@ -143,3 +143,14 @@ class A(Element):
 
     def __init__(self, *args):
         Element.__init__(self, args[1], href=args[0])
+
+
+class Ul(Element):
+    opening_tag = [u"<ul>"]
+    closing_tag = [u"</ul>"]
+
+
+class li(Element):
+    opening_tag = [u"<li>"]
+    closing_tag = [u"</li>"]
+
