@@ -23,12 +23,15 @@ class Element(object):  # change list to object and solve the problem
         else:
             f.reset()
             self.contents += [f.read()]
-            print self.contents
+            # print self.contents
             f.close()
 
     def render(self, file_out, ind=""):
+        print self.contents
+        temp = self.contents[0].split(u"\n")
+        print (temp)
         all_out = self.opening_tag + \
-            [u"{:4}".format(u"") + x for x in self.contents] + \
+            [u"{:4}".format(u"") + x for x in temp] + \
             self.closing_tag
         # print all_out
         file_out.write("\n".join(all_out))
