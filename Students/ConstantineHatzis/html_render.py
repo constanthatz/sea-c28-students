@@ -99,7 +99,7 @@ class Hr(Element):
             print(list_tag)
 
             for key in self.kwargs:
-                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+                list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
                 print(list_tag)
                 self.opening_tag = "".join(list_tag)
                 print(self.opening_tag)
@@ -124,7 +124,7 @@ class Br(Element):
             print(list_tag)
 
             for key in self.kwargs:
-                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+                list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
                 print(list_tag)
                 self.opening_tag = "".join(list_tag)
                 print(self.opening_tag)
@@ -150,7 +150,6 @@ class Ul(Element):
     closing_tag = [u"</ul>"]
 
 
-class li(Element):
+class Li(Element):
     opening_tag = [u"<li>"]
     closing_tag = [u"</li>"]
-
