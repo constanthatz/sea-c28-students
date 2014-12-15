@@ -27,12 +27,12 @@ class Element(object):  # change list to object and solve the problem
             # print self.contents
             f.close()
 
-    def render(self, file_out, ind=""):
+    def render(self, file_out, ind=u"    "):
         split_temp = [x.split(u"\n") for x in self.contents]
         temp = list(itertools.chain.from_iterable(split_temp))
 
         all_out = self.opening_tag + \
-            [u"{:4}".format(u"") + x for x in temp] + \
+            [ind + x for x in temp] + \
             self.closing_tag
         print all_out
         file_out.write("\n".join(all_out))
