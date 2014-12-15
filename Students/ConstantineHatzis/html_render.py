@@ -135,3 +135,11 @@ class Br(Element):
             [ind + x for x in temp]
         # print all_out
         file_out.write("".join(all_out))
+
+
+class A(Element):
+    opening_tag = [u"<a>"]
+    closing_tag = [u"</a>"]
+
+    def __init__(self, contents=None, **kwargs):
+        Element.__init__(self, contents=None, **kwargs)
