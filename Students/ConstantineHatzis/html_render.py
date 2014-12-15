@@ -67,8 +67,6 @@ class Head(Element):
 
 
 class OneLineTag(Element):
-    pass
-
     def render(self, file_out, ind=u""):
             split_temp = [x.split(u"\n") for x in self.contents]
             temp = list(itertools.chain.from_iterable(split_temp))
@@ -85,7 +83,6 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
-    opening_tag = [u"</>"]
 
     def render(self, file_out, ind=u""):
         split_temp = [x.split(u"\n") for x in self.contents]
@@ -105,7 +102,7 @@ class SelfClosingTag(Element):
 
 
 class Hr(SelfClosingTag):
-    pass
+    opening_tag = [u"<hr />"]
 
 
 class Br(SelfClosingTag):
@@ -130,7 +127,7 @@ class Li(Element):
     closing_tag = [u"</li>"]
 
 
-class H(Title):
+class H(OneLineTag):
     opening_tag = [u"<h>"]
     closing_tag = [u"</h>"]
 
@@ -147,4 +144,8 @@ class H(Title):
         self.closing_tag = "".join(list_closing_tag)
         self.closing_tag = [self.closing_tag]
 
-        Title.__init__(self, args[1])
+        OneLineTag.__init__(self, args[1])
+
+
+class Meta(SelfClosingTag):
+    opening_tag = [u"<meta />"]
