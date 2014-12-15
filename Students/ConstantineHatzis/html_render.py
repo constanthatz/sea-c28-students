@@ -66,22 +66,26 @@ class Head(Element):
     closing_tag = [u"</head>"]
 
 
-class Title(Element):
+class OneLineTag(Element):
+    pass
+
+    def render(self, file_out, ind=u""):
+            split_temp = [x.split(u"\n") for x in self.contents]
+            temp = list(itertools.chain.from_iterable(split_temp))
+
+            all_out = self.opening_tag + \
+                [ind + x for x in temp] + \
+                self.closing_tag
+            file_out.write("".join(all_out))
+
+
+class Title(OneLineTag):
     opening_tag = [u"<title>"]
     closing_tag = [u"</title>"]
 
-    def render(self, file_out, ind=u""):
-        split_temp = [x.split(u"\n") for x in self.contents]
-        temp = list(itertools.chain.from_iterable(split_temp))
 
-        all_out = self.opening_tag + \
-            [ind + x for x in temp] + \
-            self.closing_tag
-        file_out.write("".join(all_out))
-
-
-class Hr(Element):
-    opening_tag = [u"<hr />"]
+class SelfClosingTag(Element):
+    opening_tag = [u"</>"]
 
     def render(self, file_out, ind=u""):
         split_temp = [x.split(u"\n") for x in self.contents]
@@ -100,24 +104,12 @@ class Hr(Element):
         file_out.write("".join(all_out))
 
 
-class Br(Element):
+class Hr(SelfClosingTag):
+    pass
+
+
+class Br(SelfClosingTag):
     opening_tag = [u"<br />"]
-
-    def render(self, file_out, ind=u""):
-        split_temp = [x.split(u"\n") for x in self.contents]
-        temp = list(itertools.chain.from_iterable(split_temp))
-
-        if self.kwargs:
-            list_tag = list(self.opening_tag[0])
-
-            for key in self.kwargs:
-                list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
-                self.opening_tag = "".join(list_tag)
-                self.opening_tag = [self.opening_tag]
-
-        all_out = self.opening_tag + \
-            [ind + x for x in temp]
-        file_out.write("".join(all_out))
 
 
 class A(Element):
@@ -154,7 +146,5 @@ class H(Title):
 
         self.closing_tag = "".join(list_closing_tag)
         self.closing_tag = [self.closing_tag]
-
-        print(self.opening_tag)
 
         Title.__init__(self, args[1])
