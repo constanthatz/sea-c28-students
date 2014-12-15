@@ -26,7 +26,6 @@ class Element(object):  # change list to object and solve the problem
         else:
             f.reset()
             self.contents += [f.read()]
-            # print self.contents
             f.close()
 
     def render(self, file_out, ind=u"    "):
@@ -35,20 +34,15 @@ class Element(object):  # change list to object and solve the problem
 
         if self.kwargs:
             list_tag = list(self.opening_tag[0])
-            print(list_tag)
 
             for key in self.kwargs:
                 list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
-                print(list_tag)
                 self.opening_tag = "".join(list_tag)
-                print(self.opening_tag)
                 self.opening_tag = [self.opening_tag]
-                print(self.opening_tag)
 
         all_out = self.opening_tag + \
             [ind + x for x in temp] + \
             self.closing_tag
-        # print all_out
         file_out.write("\n".join(all_out))
 
 
@@ -83,7 +77,6 @@ class Title(Element):
         all_out = self.opening_tag + \
             [ind + x for x in temp] + \
             self.closing_tag
-        # print all_out
         file_out.write("".join(all_out))
 
 
@@ -96,19 +89,14 @@ class Hr(Element):
 
         if self.kwargs:
             list_tag = list(self.opening_tag[0])
-            print(list_tag)
 
             for key in self.kwargs:
                 list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
-                print(list_tag)
                 self.opening_tag = "".join(list_tag)
-                print(self.opening_tag)
                 self.opening_tag = [self.opening_tag]
-                print(self.opening_tag)
 
         all_out = self.opening_tag + \
             [ind + x for x in temp]
-        # print all_out
         file_out.write("".join(all_out))
 
 
@@ -121,19 +109,14 @@ class Br(Element):
 
         if self.kwargs:
             list_tag = list(self.opening_tag[0])
-            print(list_tag)
 
             for key in self.kwargs:
                 list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
-                print(list_tag)
                 self.opening_tag = "".join(list_tag)
-                print(self.opening_tag)
                 self.opening_tag = [self.opening_tag]
-                print(self.opening_tag)
 
         all_out = self.opening_tag + \
             [ind + x for x in temp]
-        # print all_out
         file_out.write("".join(all_out))
 
 
@@ -153,3 +136,8 @@ class Ul(Element):
 class Li(Element):
     opening_tag = [u"<li>"]
     closing_tag = [u"</li>"]
+
+
+class H(Element):
+    opening_tag = [u"<h>"]
+    closing_tag = [u"</h>"]
