@@ -85,3 +85,53 @@ class Title(Element):
             self.closing_tag
         # print all_out
         file_out.write("".join(all_out))
+
+
+class Hr(Element):
+    opening_tag = [u"<hr />"]
+
+    def render(self, file_out, ind=u""):
+        split_temp = [x.split(u"\n") for x in self.contents]
+        temp = list(itertools.chain.from_iterable(split_temp))
+
+        if self.kwargs:
+            list_tag = list(self.opening_tag[0])
+            print(list_tag)
+
+            for key in self.kwargs:
+                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+                print(list_tag)
+                self.opening_tag = "".join(list_tag)
+                print(self.opening_tag)
+                self.opening_tag = [self.opening_tag]
+                print(self.opening_tag)
+
+        all_out = self.opening_tag + \
+            [ind + x for x in temp]
+        # print all_out
+        file_out.write("".join(all_out))
+
+
+class Br(Element):
+    opening_tag = [u"<br />"]
+
+    def render(self, file_out, ind=u""):
+        split_temp = [x.split(u"\n") for x in self.contents]
+        temp = list(itertools.chain.from_iterable(split_temp))
+
+        if self.kwargs:
+            list_tag = list(self.opening_tag[0])
+            print(list_tag)
+
+            for key in self.kwargs:
+                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+                print(list_tag)
+                self.opening_tag = "".join(list_tag)
+                print(self.opening_tag)
+                self.opening_tag = [self.opening_tag]
+                print(self.opening_tag)
+
+        all_out = self.opening_tag + \
+            [ind + x for x in temp]
+        # print all_out
+        file_out.write("".join(all_out))
