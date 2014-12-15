@@ -51,3 +51,8 @@ class Body(Element):
 class P(Element):
     opening_tag = [u"<p>"]
     closing_tag = [u"</p>"]
+
+
+class Head(Element):
+    opening_tag = [u"<head>"]
+    closing_tag = [u"</head>"]
