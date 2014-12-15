@@ -138,6 +138,23 @@ class Li(Element):
     closing_tag = [u"</li>"]
 
 
-class H(Element):
+class H(Title):
     opening_tag = [u"<h>"]
     closing_tag = [u"</h>"]
+
+    def __init__(self, *args):
+        list_opening_tag = list(self.opening_tag[0])
+        list_closing_tag = list(self.closing_tag[0])
+
+        list_opening_tag.insert(-1, u"{}".format(args[0]))
+        list_closing_tag.insert(-1, u"{}".format(args[0]))
+
+        self.opening_tag = "".join(list_opening_tag)
+        self.opening_tag = [self.opening_tag]
+
+        self.closing_tag = "".join(list_closing_tag)
+        self.closing_tag = [self.closing_tag]
+
+        print(self.opening_tag)
+
+        Title.__init__(self, args[1])
