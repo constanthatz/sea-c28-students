@@ -9,11 +9,13 @@ class Element(object):  # change list to object and solve the problem
     closing_tag = [u"</>"]
     indent = ""
 
-    def __init__(self, contents=None):
+    def __init__(self, contents=None, **kwargs):
         if contents:
             self.contents = [contents]
         else:
             self.contents = []
+
+        self.kwargs = kwargs
 
     def append(self, string):
         try:
@@ -30,6 +32,13 @@ class Element(object):  # change list to object and solve the problem
     def render(self, file_out, ind=u"    "):
         split_temp = [x.split(u"\n") for x in self.contents]
         temp = list(itertools.chain.from_iterable(split_temp))
+
+        if self.kwargs:
+            list_tag = list(self.opening_tag)
+            for key in self.kwargs:
+                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+                self.opening_tag = "".join(list_tag)
+                print(self.opening_tag)
 
         all_out = self.opening_tag + \
             [ind + x for x in temp] + \
