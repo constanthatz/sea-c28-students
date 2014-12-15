@@ -56,3 +56,18 @@ class P(Element):
 class Head(Element):
     opening_tag = [u"<head>"]
     closing_tag = [u"</head>"]
+
+
+class OneLineTag(Element):
+    opening_tag = [u"<title>"]
+    closing_tag = [u"</title>"]
+
+    def render(self, file_out, ind=u"    "):
+        split_temp = [x.split(u"\n") for x in self.contents]
+        temp = list(itertools.chain.from_iterable(split_temp))
+
+        all_out = self.opening_tag + \
+            [ind + x for x in temp] + \
+            self.closing_tag
+        print all_out
+        file_out.write("\n".join(all_out))
