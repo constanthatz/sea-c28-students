@@ -29,8 +29,7 @@ class Element(object):  # change list to object and solve the problem
             f.close()
 
     def render(self, file_out, ind=indent):
-        split_temp = [x.split(u"\n") for x in self.contents]
-        temp = list(itertools.chain.from_iterable(split_temp))
+        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
         if self.kwargs:
             list_tag = list(self.opening_tag[0])
@@ -41,7 +40,7 @@ class Element(object):  # change list to object and solve the problem
                 self.opening_tag = [self.opening_tag]
 
         all_out = self.opening_tag + \
-            [ind + x for x in temp] + \
+            [ind + x for x in content] + \
             self.closing_tag
         file_out.write("\n".join(all_out))
 
@@ -70,11 +69,10 @@ class OneLineTag(Element):
     indent = u""
 
     def render(self, file_out, ind=indent):
-            split_temp = [x.split(u"\n") for x in self.contents]
-            temp = list(itertools.chain.from_iterable(split_temp))
+            content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
             all_out = self.opening_tag + \
-                [ind + x for x in temp] + \
+                [ind + x for x in content] + \
                 self.closing_tag
             file_out.write("".join(all_out))
 
@@ -87,8 +85,7 @@ class Title(OneLineTag):
 class SelfClosingTag(Element):
 
     def render(self, file_out, ind=u""):
-        split_temp = [x.split(u"\n") for x in self.contents]
-        temp = list(itertools.chain.from_iterable(split_temp))
+        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
         if self.kwargs:
             list_tag = list(self.opening_tag[0])
@@ -99,7 +96,7 @@ class SelfClosingTag(Element):
                 self.opening_tag = [self.opening_tag]
 
         all_out = self.opening_tag + \
-            [ind + x for x in temp]
+            [ind + x for x in content]
         file_out.write("".join(all_out))
 
 
