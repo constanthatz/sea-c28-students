@@ -141,5 +141,5 @@ class A(Element):
     opening_tag = [u"<a>"]
     closing_tag = [u"</a>"]
 
-    def __init__(self, contents=None, **kwargs):
-        Element.__init__(self, contents=None, **kwargs)
+    def __init__(self, *args):
+        Element.__init__(self, args[1], href=args[0])
