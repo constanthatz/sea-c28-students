@@ -7,7 +7,7 @@ import itertools
 class Element(object):  # change list to object and solve the problem
     opening_tag = [u"<>"]
     closing_tag = [u"</>"]
-    indent = ""
+    indent = u"    "
 
     def __init__(self, contents=None, **kwargs):
         if contents:
@@ -28,7 +28,7 @@ class Element(object):  # change list to object and solve the problem
             self.contents += [f.read()]
             f.close()
 
-    def render(self, file_out, ind=u"    "):
+    def render(self, file_out, ind=indent):
         split_temp = [x.split(u"\n") for x in self.contents]
         temp = list(itertools.chain.from_iterable(split_temp))
 
@@ -47,7 +47,7 @@ class Element(object):  # change list to object and solve the problem
 
 
 class Html(Element):
-    opening_tag = [u"<html>"]
+    opening_tag = [u"<!DOCTYPE html>\n<html>"]
     closing_tag = [u"</html>"]
 
 
@@ -67,7 +67,9 @@ class Head(Element):
 
 
 class OneLineTag(Element):
-    def render(self, file_out, ind=u""):
+    indent = u""
+
+    def render(self, file_out, ind=indent):
             split_temp = [x.split(u"\n") for x in self.contents]
             temp = list(itertools.chain.from_iterable(split_temp))
 
