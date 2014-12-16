@@ -28,7 +28,8 @@ class Element(object):  # change list to object and solve the problem
             f.close()
 
     def render(self, file_out, ind=indent):
-        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
+        content = list(itertools.chain.from_iterable([x.split(u"\n")
+                                                     for x in self.contents]))
 
         if self.kwargs:
             list_tag = list(self.tags[0])
@@ -63,7 +64,8 @@ class OneLineTag(Element):
     indent = u""
 
     def render(self, file_out, ind=indent):
-        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
+        content = list(itertools.chain.from_iterable([x.split(u"\n")
+                                                     for x in self.contents]))
 
         if self.kwargs:
             list_tag = list(self.tags[0])
