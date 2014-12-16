@@ -5,8 +5,7 @@ import itertools
 
 
 class Element(object):  # change list to object and solve the problem
-    opening_tag = [u"<>"]
-    closing_tag = [u"</>"]
+    tags = [u"<>", u"</>"]
     indent = u"    "
 
     def __init__(self, contents=None, **kwargs):
@@ -32,119 +31,96 @@ class Element(object):  # change list to object and solve the problem
         content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
         if self.kwargs:
-            list_tag = list(self.opening_tag[0])
+            list_tag = list(self.tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
-                self.opening_tag = "".join(list_tag)
-                self.opening_tag = [self.opening_tag]
+            self.tags[0] = "".join(list_tag)
 
-        all_out = self.opening_tag + \
+        all_out = [self.tags[0]] + \
             [ind + x for x in content] + \
-            self.closing_tag
+            [self.tags[1]]
         file_out.write("\n".join(all_out))
 
 
 class Html(Element):
-    opening_tag = [u"<!DOCTYPE html>\n<html>"]
-    closing_tag = [u"</html>"]
+    tags = [u"<!DOCTYPE html>\n<html>", u"</html>"]
 
 
 class Body(Element):
-    opening_tag = [u"<body>"]
-    closing_tag = [u"</body>"]
+    tags = [u"<body>", u"</body>"]
 
 
 class P(Element):
-    opening_tag = [u"<p>"]
-    closing_tag = [u"</p>"]
+    tags = [u"<p>", u"</p>"]
 
 
 class Head(Element):
-    opening_tag = [u"<head>"]
-    closing_tag = [u"</head>"]
+    tags = [u"<head>", u"</head>"]
 
 
 class OneLineTag(Element):
     indent = u""
 
     def render(self, file_out, ind=indent):
-            content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
+        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
-            all_out = self.opening_tag + \
-                [ind + x for x in content] + \
-                self.closing_tag
-            file_out.write("".join(all_out))
+        all_out = [self.tags[0]] + \
+            [ind + x for x in content] + \
+            [self.tags[1]]
+        file_out.write("".join(all_out))
 
 
 class Title(OneLineTag):
-    opening_tag = [u"<title>"]
-    closing_tag = [u"</title>"]
+    tags = [u"<title>", u"</title>"]
 
 
 class SelfClosingTag(Element):
 
     def render(self, file_out, ind=u""):
-        content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
-
         if self.kwargs:
-            list_tag = list(self.opening_tag[0])
+            list_tag = list(self.tags[0])
 
             for key in self.kwargs:
-                list_tag.insert(-2, u' {}="{}"'.format(key, self.kwargs[key]))
-                self.opening_tag = "".join(list_tag)
-                self.opening_tag = [self.opening_tag]
+                list_tag.insert(-2, u'{}="{}"'.format(key, self.kwargs[key]))
+                self.tags[0] = "".join(list_tag)
 
-        all_out = self.opening_tag + \
-            [ind + x for x in content]
+        all_out = [self.tags[0]]
         file_out.write("".join(all_out))
 
 
 class Hr(SelfClosingTag):
-    opening_tag = [u"<hr />"]
+    tags = [u"<hr />"]
 
 
 class Br(SelfClosingTag):
-    opening_tag = [u"<br />"]
+    tags = [u"<br />"]
 
 
 class A(Element):
-    opening_tag = [u"<a>"]
-    closing_tag = [u"</a>"]
+    tags = [u"<a>", u"</a>"]
 
     def __init__(self, *args):
         Element.__init__(self, args[1], href=args[0])
 
 
 class Ul(Element):
-    opening_tag = [u"<ul>"]
-    closing_tag = [u"</ul>"]
+    tags = [u"<ul>", u"</ul>"]
 
 
 class Li(Element):
-    opening_tag = [u"<li>"]
-    closing_tag = [u"</li>"]
+    tags = [u"<li>", u"</li>"]
 
 
 class H(OneLineTag):
-    opening_tag = [u"<h>"]
-    closing_tag = [u"</h>"]
+    tags = [u"<h>", u"</h>"]
 
     def __init__(self, *args):
-        list_opening_tag = list(self.opening_tag[0])
-        list_closing_tag = list(self.closing_tag[0])
-
-        list_opening_tag.insert(-1, u"{}".format(args[0]))
-        list_closing_tag.insert(-1, u"{}".format(args[0]))
-
-        self.opening_tag = "".join(list_opening_tag)
-        self.opening_tag = [self.opening_tag]
-
-        self.closing_tag = "".join(list_closing_tag)
-        self.closing_tag = [self.closing_tag]
-
+        list_tags = [list(x) for x in self.tags]
+        [x.insert(-1, u"{}".format(args[0])) for x in list_tags]
+        self.tags = ["".join(x) for x in list_tags]
         OneLineTag.__init__(self, args[1])
 
 
 class Meta(SelfClosingTag):
-    opening_tag = [u"<meta />"]
+    tags = [u"<meta />"]
