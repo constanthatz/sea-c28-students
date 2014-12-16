@@ -65,6 +65,13 @@ class OneLineTag(Element):
     def render(self, file_out, ind=indent):
         content = list(itertools.chain.from_iterable([x.split(u"\n") for x in self.contents]))
 
+        if self.kwargs:
+            list_tag = list(self.tags[0])
+
+            for key in self.kwargs:
+                list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
+            self.tags[0] = "".join(list_tag)
+
         all_out = [self.tags[0]] + \
             [ind + x for x in content] + \
             [self.tags[1]]
@@ -76,14 +83,15 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
+    indent = u""
 
-    def render(self, file_out, ind=u""):
+    def render(self, file_out, ind=indent):
         if self.kwargs:
             list_tag = list(self.tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-2, u'{}="{}"'.format(key, self.kwargs[key]))
-                self.tags[0] = "".join(list_tag)
+            self.tags[0] = "".join(list_tag)
 
         all_out = [self.tags[0]]
         file_out.write("".join(all_out))
@@ -97,11 +105,11 @@ class Br(SelfClosingTag):
     tags = [u"<br />"]
 
 
-class A(Element):
+class A(OneLineTag):
     tags = [u"<a>", u"</a>"]
 
     def __init__(self, *args):
-        Element.__init__(self, args[1], href=args[0])
+        OneLineTag.__init__(self, args[1], href=args[0])
 
 
 class Ul(Element):
