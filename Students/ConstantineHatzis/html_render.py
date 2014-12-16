@@ -30,17 +30,17 @@ class Element(object):  # change list to object and solve the problem
     def render(self, file_out, ind=indent):
         content = list(itertools.chain.from_iterable([x.split(u"\n")
                                                      for x in self.contents]))
-
+        temp_tags = self.tags[:]
         if self.kwargs:
-            list_tag = list(self.tags[0])
+            list_tag = list(temp_tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
-            self.tags[0] = "".join(list_tag)
+            temp_tags[0] = "".join(list_tag)
 
-        all_out = [self.tags[0]] + \
+        all_out = [temp_tags[0]] + \
             [ind + x for x in content] + \
-            [self.tags[1]]
+            [temp_tags[1]]
         file_out.write("\n".join(all_out))
 
 
@@ -66,17 +66,17 @@ class OneLineTag(Element):
     def render(self, file_out, ind=indent):
         content = list(itertools.chain.from_iterable([x.split(u"\n")
                                                      for x in self.contents]))
-
+        temp_tags = self.tags[:]
         if self.kwargs:
-            list_tag = list(self.tags[0])
+            list_tag = list(temp_tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
-            self.tags[0] = "".join(list_tag)
+            temp_tags[0] = "".join(list_tag)
 
-        all_out = [self.tags[0]] + \
+        all_out = [temp_tags[0]] + \
             [ind + x for x in content] + \
-            [self.tags[1]]
+            [temp_tags[1]]
         file_out.write("".join(all_out))
 
 
@@ -88,14 +88,15 @@ class SelfClosingTag(Element):
     indent = u""
 
     def render(self, file_out, ind=indent):
+        temp_tags = self.tags[:]
         if self.kwargs:
-            list_tag = list(self.tags[0])
+            list_tag = list(temp_tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-2, u'{}="{}"'.format(key, self.kwargs[key]))
-            self.tags[0] = "".join(list_tag)
+            temp_tags[0] = "".join(list_tag)
 
-        all_out = [self.tags[0]]
+        all_out = [temp_tags[0]]
         file_out.write("".join(all_out))
 
 
