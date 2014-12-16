@@ -5,7 +5,7 @@ import itertools
 
 
 class Element(object):  # change list to object and solve the problem
-    tags = [u"<>", u"</>"]
+    tags = (u"<>", u"</>")
     indent = u"    "
 
     def __init__(self, contents=None, **kwargs):
@@ -30,7 +30,7 @@ class Element(object):  # change list to object and solve the problem
     def render(self, file_out, ind=indent):
         content = list(itertools.chain.from_iterable([x.split(u"\n")
                                                      for x in self.contents]))
-        temp_tags = self.tags[:]
+        temp_tags = list(self.tags)
         if self.kwargs:
             list_tag = list(temp_tags[0])
 
@@ -45,19 +45,19 @@ class Element(object):  # change list to object and solve the problem
 
 
 class Html(Element):
-    tags = [u"<!DOCTYPE html>\n<html>", u"</html>"]
+    tags = (u"<!DOCTYPE html>\n<html>", u"</html>")
 
 
 class Body(Element):
-    tags = [u"<body>", u"</body>"]
+    tags = (u"<body>", u"</body>")
 
 
 class P(Element):
-    tags = [u"<p>", u"</p>"]
+    tags = (u"<p>", u"</p>")
 
 
 class Head(Element):
-    tags = [u"<head>", u"</head>"]
+    tags = (u"<head>", u"</head>")
 
 
 class OneLineTag(Element):
@@ -66,7 +66,7 @@ class OneLineTag(Element):
     def render(self, file_out, ind=indent):
         content = list(itertools.chain.from_iterable([x.split(u"\n")
                                                      for x in self.contents]))
-        temp_tags = self.tags[:]
+        temp_tags = list(self.tags)
         if self.kwargs:
             list_tag = list(self.tags[0])
 
@@ -81,14 +81,14 @@ class OneLineTag(Element):
 
 
 class Title(OneLineTag):
-    tags = [u"<title>", u"</title>"]
+    tags = (u"<title>", u"</title>")
 
 
 class SelfClosingTag(Element):
     indent = u""
 
     def render(self, file_out, ind=indent):
-        temp_tags = self.tags[:]
+        temp_tags = list(self.tags)
         if self.kwargs:
             list_tag = list(temp_tags[0])
 
@@ -101,30 +101,30 @@ class SelfClosingTag(Element):
 
 
 class Hr(SelfClosingTag):
-    tags = [u"<hr />"]
+    tags = (u"<hr />")
 
 
 class Br(SelfClosingTag):
-    tags = [u"<br />"]
+    tags = (u"<br />")
 
 
 class A(OneLineTag):
-    tags = [u"<a>", u"</a>"]
+    tags = (u"<a>", u"</a>")
 
     def __init__(self, *args):
         OneLineTag.__init__(self, args[1], href=args[0])
 
 
 class Ul(Element):
-    tags = [u"<ul>", u"</ul>"]
+    tags = (u"<ul>", u"</ul>")
 
 
 class Li(Element):
-    tags = [u"<li>", u"</li>"]
+    tags = (u"<li>", u"</li>")
 
 
 class H(OneLineTag):
-    tags = [u"<h>", u"</h>"]
+    tags = (u"<h>", u"</h>")
 
     def __init__(self, *args):
         list_tags = [list(x) for x in self.tags]
@@ -134,4 +134,4 @@ class H(OneLineTag):
 
 
 class Meta(SelfClosingTag):
-    tags = [u"<meta />"]
+    tags = (u"<meta />")
