@@ -68,7 +68,7 @@ class OneLineTag(Element):
                                                      for x in self.contents]))
         temp_tags = self.tags[:]
         if self.kwargs:
-            list_tag = list(temp_tags[0])
+            list_tag = list(self.tags[0])
 
             for key in self.kwargs:
                 list_tag.insert(-1, u' {}="{}"'.format(key, self.kwargs[key]))
