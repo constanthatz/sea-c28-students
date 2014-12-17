@@ -52,7 +52,7 @@ def thank_you_prompt():
         new donor, add their name to the list of donors."""
 
     # Ask user what they want to do
-    prompt = u"\nFull Name (q: quit, s: start over): "
+    prompt = u"\nFull Name (list: list of donors, s: start over, q: quit): "
     reply = safe_input(prompt)
 
     # Parse user input. "q" for quit, "s" back to start over
