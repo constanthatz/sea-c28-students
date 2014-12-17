@@ -32,9 +32,9 @@ print(ds_a)
 
 # Create sets of various divisibilities
 s1 = range(21)
-s2 = set([x for x in s1 if x % 2 == 0])
-s3 = set([x for x in s1 if x % 3 == 0])
-s4 = set([x for x in s1 if x % 4 == 0])
+s2 = {x for x in s1 if x % 2 == 0}
+s3 = {x for x in s1 if x % 3 == 0}
+s4 = {x for x in s1 if x % 4 == 0}
 
 print(s2)
 print(s3)
