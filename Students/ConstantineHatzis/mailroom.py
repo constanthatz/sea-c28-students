@@ -73,7 +73,9 @@ def thank_you_prompt():
 
 def name_donation(name):
     """Return name of donor and their donation amount."""
-    donors.setdefault(name, [])  # Add name to donor list if not in list
+    # Add name to donor list if not in list, case insensitive
+    name = name.title()
+    donors.setdefault(name, [])
     donation = new_donation()  # Ask for donation amount
     donors.get(name).append(donation)  # Add donation amont to donor list
     return name, donation
