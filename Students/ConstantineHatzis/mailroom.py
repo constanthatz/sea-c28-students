@@ -118,9 +118,8 @@ def create_report():
     donations, and total donations"""
     report_matrix = []  # Initialize report data dictionary
 
-    for x in donors:
-        donor = x
-        donations = donors[x]  # List of donations
+    for donor in donors:
+        donations = donors[donor]  # List of donations
         total_donations = sum(donations)  # Total donations
         number_donations = len(donations)  # Total number of donations
         avg_donation = total_donations / number_donations  # Average donation
