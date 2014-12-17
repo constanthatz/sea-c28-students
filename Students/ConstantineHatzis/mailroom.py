@@ -21,7 +21,7 @@ def safe_input(prompt):
     except (EOFError, KeyboardInterrupt):
         quit()
     else:
-        return reply
+        return reply.decode('utf-8')  # Convert input to unicode
 
 
 def first_level_prompt():
@@ -31,8 +31,6 @@ def first_level_prompt():
     # Ask user what they want to do
     prompt = u"\n1: Send a Thank You \n2: Create a Report \nq: Quit \n?: "
     reply = safe_input(prompt)
-
-    reply = unicode(reply)  # Convert input to unicode
 
     # Parse user input. "q" for quit, "1" to write thank you email
     # "2" to create report, and catch invalid choices
@@ -57,8 +55,6 @@ def thank_you_prompt():
     # Ask user what they want to do
     prompt = u"\nFull Name (q: quit, s: start over): "
     reply = safe_input(prompt)
-
-    reply = unicode(reply)  # Convert input to unicode
 
     # Parse user input. "q" for quit, "s" back to start over
     # "list" to see donors, or donor name
@@ -92,8 +88,6 @@ def new_donation():
     # Ask user what they want to do
     prompt = u"\nDonation Amount (q: quit, s: start over): "
     reply = safe_input(prompt)
-
-    reply = unicode(reply)  # Convert input to unicode
 
     # Parse user input. "q" for quit, "s" back to start over
     # donation amount
