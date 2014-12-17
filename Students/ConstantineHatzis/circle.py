@@ -20,14 +20,11 @@ class Circle(object):
     def get_area(self):
         return math.pi * self.radius ** 2
 
-    def set_area(self, area):
-        self.radius = math.sqrt(area / math.pi)
-
     def __str__(self):
-        return 'Circle with raidus: {:0.6f}'.format(self.radius)
+        return 'Circle with radius: {:0.6f}'.format(self.radius)
 
     def __repr__(self):
         return 'Circle({:0.0f})'.format(self.radius)
 
     diameter = property(get_diameter, set_diameter)
-    area = property(get_area, set_area)
+    area = property(get_area)
