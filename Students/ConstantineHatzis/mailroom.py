@@ -19,7 +19,7 @@ def safe_input(prompt):
     try:
         reply = raw_input(prompt)
     except (EOFError, KeyboardInterrupt):
-        return quit()
+        quit()
     else:
         return reply
 
