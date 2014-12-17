@@ -118,8 +118,8 @@ def create_report():
     donations, and total donations"""
     report_matrix = []  # Initialize report data dictionary
 
-    for donor in donors:
-        donations = donors[donor]  # List of donations
+    for donor, donations in donors.iteritems():
+        # donations = donors[donor]  # List of donations
         total_donations = sum(donations)  # Total donations
         number_donations = len(donations)  # Total number of donations
         avg_donation = total_donations / number_donations  # Average donation
@@ -138,16 +138,11 @@ def create_report():
 
     # Print column titles
     print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*header))
-    for x in range(len(report_matrix)):  # Print table
+    for x in sorted_report_matrix:  # Print table
 
         # Format report data so that I can right align in the columns when I
         # print the table, but still have the dollar sign next to the numbers
-        args = [
-            sorted_report_matrix[x][0],
-            "${:.2f}".format(sorted_report_matrix[x][1]),
-            sorted_report_matrix[x][2],
-            "${:.2f}".format(sorted_report_matrix[x][3])]
-
+        args = [x[0], "${:.2f}".format(x[1]), x[2], "${:.2f}".format(x[3])]
         print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*args))
 
     first_level_prompt()  # Go back to original prompt
