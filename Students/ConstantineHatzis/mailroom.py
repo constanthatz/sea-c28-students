@@ -37,14 +37,13 @@ def first_level_prompt():
     if reply.lower() == u"q":  # Quit mailroom
         quit()
     elif reply == u"1":
-        reply = thank_you_prompt()  # Create thank you email
+        thank_you_prompt()  # Create thank you email
     elif reply == u"2":
-        reply = create_report()  # Create donor report
+        create_report()  # Create donor report
     else:
         # Reject invalid choice
         print(u"\nNot a valid choice, please choose again.")
-        reply = first_level_prompt()
-    return reply
+        first_level_prompt()
 
 
 def thank_you_prompt():
@@ -61,17 +60,15 @@ def thank_you_prompt():
     if reply.lower() == u"q":  # Quit mailroom
         quit()
     elif reply == u"s":  # Go back to first prompt
-        reply = first_level_prompt()
+        first_level_prompt()
     elif reply.lower() == u"list":  # Print list of donors and return to prompt
         print(u"\n")
         for x in donors.keys():
             print(u"{}".format(x))
-        reply = thank_you_prompt()
+        thank_you_prompt()
     else:
         name, donation = name_donation(reply)  # Check user inputted name
-        reply = compose_thank_you(name, donation)  # Compose thank you email
-
-    return reply
+        compose_thank_you(name, donation)  # Compose thank you email
 
 
 def name_donation(name):
@@ -114,8 +111,7 @@ def compose_thank_you(name, donation):
     template = u"\n\t{}, thank you for your generous donation of ${:.2f}." \
         .format(name, donation)
     print(template)
-    reply = first_level_prompt()  # Go back to original prompt
-    return reply
+    first_level_prompt()  # Go back to original prompt
 
 
 def create_report():
@@ -156,9 +152,8 @@ def create_report():
 
         print(u"{0:<20}{1:>20}{2:>30}{3:>30}\n".format(*args))
 
-    reply = first_level_prompt()  # Go back to original prompt
-    return reply
+    first_level_prompt()  # Go back to original prompt
 
 if __name__ == '__main__':
     # Start the mailroom
-    reply = first_level_prompt()
+    first_level_prompt()
