@@ -27,8 +27,10 @@ class Circle(object):
         return 'Circle({:0.0f})'.format(self.radius)
 
     def __add__(self, other):
-        radius = self.radius + other.radius
-        return Circle(radius)
+        return Circle(self.radius + other.radius)
+
+    def __mul__(self, other):
+        return Circle(self.radius * other)
 
     diameter = property(get_diameter, set_diameter)
     area = property(get_area)
