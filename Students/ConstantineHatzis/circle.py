@@ -32,5 +32,23 @@ class Circle(object):
     def __mul__(self, other):
         return Circle(self.radius * other)
 
+    def __eq__(self, other):
+        return self.radius == other.radius
+
+    def __ne__(self, other):
+        return self.radius != other.radius
+
+    def __lt__(self, other):
+        return self.radius < other.radius
+
+    def __le__(self, other):
+        return self.radius <= other.radius
+
+    def __ge__(self, other):
+        return self.radius >= other.radius
+
+    def __gt__(self, other):
+        return self.radius > other.radius
+
     diameter = property(get_diameter, set_diameter)
     area = property(get_area)
