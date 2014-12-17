@@ -27,7 +27,7 @@ print(dec_hex)
 
 # Create dictionary of original keys and original value 'a' counts
 print(ds)
-ds_a = dict(zip(ds.keys(), [x.count(u"a") for x in map(ds.get, ds.keys())]))
+ds_a = dict(zip(ds.keys(), [x.count(u"a") for x in ds.values()]))
 print(ds_a)
 
 # Create sets of various divisibilities
