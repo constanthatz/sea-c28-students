@@ -4,13 +4,14 @@ from __future__ import division
 from operator import itemgetter
 
 # Data structure for donors and donations using dictionary
-donors = {}
-donors[u"John Doe"] = [1010.75, 537.25, 5300]
-donors[u"Jane Doe"] = [1234]
-donors[u"Diana Prince"] = [30730.25, 15300.25]
-donors[u"Indiana Jones"] = [301, 130.50, 201.75]
-donors[u"Beric Dondarrion"] = [1320.75, 5020.25]
-donors[u"Marie Curie"] = [1000, 3200.50]
+donors = {
+    u"John Doe": [1010.75, 537.25, 5300],
+    u"Jane Doe": [1234],
+    u"Diana Prince": [30730.25, 15300.25],
+    u"Indiana Jones": [301, 130.50, 201.75],
+    u"Beric Dondarrion": [1320.75, 5020.25],
+    u"Marie Curie": [1000, 3200.50]
+    }
 
 
 def safe_input(prompt):
