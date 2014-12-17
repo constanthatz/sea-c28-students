@@ -108,9 +108,8 @@ def compose_thank_you(name, donation):
     """Print thank you email from template"""
 
     # Email template
-    template = u"\n\t{}, thank you for your generous donation of ${:.2f}." \
-        .format(name, donation)
-    print(template)
+    template = u"\n\t{}, thank you for your generous donation of ${:.2f}."
+    print(template.format(name, donation))
     first_level_prompt()  # Go back to original prompt
 
 
