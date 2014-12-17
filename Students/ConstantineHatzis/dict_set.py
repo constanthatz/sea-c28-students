@@ -43,7 +43,7 @@ print(s3.issubset(s2))
 print(s4.issubset(s2))
 
 # Create string set, add string to set, create string frozenset
-python_set = set(list(u"Python"))
+python_set = set(u"Python")
 python_set.add(u"i")
 marathon_set = frozenset(u"marathon")
 
