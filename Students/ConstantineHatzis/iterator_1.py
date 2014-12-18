@@ -42,23 +42,20 @@ class IterateMe_2(object):
             self.start = 0
             self.stop = args[0]
             self.step = 1
-        elif len(args) == 2:
+        elif len(args) == 2 or len(args) == 3:
             self.start = args[0]
-            self.step = 1
             if args[0] > args[1]:
                 self.stop = args[0]
             else:
                 self.stop = args[1]
-        elif len(args) == 3:
-            self.start = args[0]
-            self.step = args[2]
-            if args[0] > args[1]:
-                self.stop = args[0]
+
+            if len(args) == 2:
+                self.step = 1
             else:
-                self.stop = args[1]
-        self.current = self.start-self.step
+                self.step = args[2]
 
     def __iter__(self):
+        self.current = self.start-self.step
         return self
 
     def next(self):
