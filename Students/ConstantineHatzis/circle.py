@@ -50,5 +50,9 @@ class Circle(object):
     def __gt__(self, other):
         return self.radius > other.radius
 
+    def from_diameter(cls, x):
+        return Circle(x / 2)
+
+    from_diameter = classmethod(from_diameter)
     diameter = property(get_diameter, set_diameter)
     area = property(get_area)
