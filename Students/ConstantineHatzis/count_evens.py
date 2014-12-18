@@ -7,6 +7,10 @@ def count_evens(nums):
 
 
 if __name__ == "__main__":
-    nums = range(100)
-    num_evens = count_evens(nums)
-    print(num_evens)
+    test_values = [[0, 100, 50], [0, 30, 15], [10, 50, 20]]
+    for x in test_values:
+        nums = range(x[0], x[1])
+        print(count_evens(nums))
+        assert count_evens(nums) == x[2]
+
+    print(u"All tests pass")
