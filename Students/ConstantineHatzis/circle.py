@@ -9,15 +9,27 @@ import math
 
 class Circle(object):
     def __init__(self, radius):
-        self.radius = radius
+        self._radius = radius
 
-    def get_diameter(self):
-        return self.radius * 2
+    @property
+    def radius(self):
+        return self._radius
 
-    def set_diameter(self, diameter):
-        self.radius = diameter / 2
+    @radius.setter
+    def radius(self, value):
+        self._radius = value
 
-    def get_area(self):
+    @property
+    def diameter(self):
+        return self._radius * 2
+
+    @diameter.setter
+    def diameter(self, value):
+        self._diameter = value
+        self._radius = self._diameter / 2
+
+    @property
+    def area(self):
         return math.pi * self.radius ** 2
 
     def __str__(self):
@@ -50,9 +62,6 @@ class Circle(object):
     def __gt__(self, other):
         return self.radius > other.radius
 
+    @classmethod
     def from_diameter(cls, x):
         return Circle(x / 2)
-
-    from_diameter = classmethod(from_diameter)
-    diameter = property(get_diameter, set_diameter)
-    area = property(get_area)
