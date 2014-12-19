@@ -2,6 +2,7 @@ import unittest
 import cStringIO
 import html_render as hr
 
+
 class MyTests(unittest.TestCase):
     def test_Html(self):
         expected = '<!DOCTYPE html>\n<html>\n</html>'
@@ -24,9 +25,9 @@ class MyTests(unittest.TestCase):
         self.assertEquals(expected, actual)
 
     def test_P(self):
-        expected = '<p>\n</p>'
+        expected = '<p style="text-align: center">\n    This is a paragraph.\n</p>'
 
-        p = hr.P()
+        p = hr.P(u"This is a paragraph.", style=u"text-align: center")
         f = cStringIO.StringIO()
         p.render(f)
         f.reset()
@@ -39,6 +40,16 @@ class MyTests(unittest.TestCase):
         head = hr.Head()
         f = cStringIO.StringIO()
         head.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
+    def test_Title_OneLineTag(self):
+        expected = '<title>This is a title</title>'
+
+        title = hr.Title(u"This is a title")
+        f = cStringIO.StringIO()
+        title.render(f)
         f.reset()
         actual = f.read()
         self.assertEquals(expected, actual)
