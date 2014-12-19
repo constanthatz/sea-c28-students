@@ -114,5 +114,18 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_append(self):
+        expected = '<head>\n    <meta charset="UTF-8"/>\n</head>'
+
+        head = hr.Head()
+        meta = hr.Meta(charset=u"UTF-8")
+        head.append(meta)
+
+        f = cStringIO.StringIO()
+        head.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
 if __name__ == '__main__':
     unittest.main()
