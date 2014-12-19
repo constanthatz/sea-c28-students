@@ -18,4 +18,4 @@ def test_encrypt_punctuation():
     # Test case 2: Does it ignore punctuation adn white space?
     punc = unicode(string.punctuation)
 
-    assert rot13(punc) == punc
+    assert rot13(punc + u" ") == punc + u" "

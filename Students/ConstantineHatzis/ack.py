@@ -27,6 +27,9 @@ if __name__ == "__main__":
         for n in range(5):
             assert ack(m, n) == test_values[m][n]
 
+    assert not ack(-1, 1)
+    assert not ack(1, -1)
+
     # If an assert fails, and exception will be thrown and this following print
     # will not executre.
     print(u"All Tests Pass")

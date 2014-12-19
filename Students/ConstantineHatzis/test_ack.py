@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import pytest
 from ack import ack
 
 
@@ -12,3 +11,6 @@ def test_ack():
     for m in range(4):
         for n in range(5):
             assert ack(m, n) == test_values[m][n]
+
+    assert not ack(-1, 1)
+    assert not ack(1, -1)
