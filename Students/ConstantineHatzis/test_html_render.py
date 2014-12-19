@@ -45,9 +45,9 @@ class MyTests(unittest.TestCase):
         self.assertEquals(expected, actual)
 
     def test_Title_OneLineTag(self):
-        expected = '<title>This is a title</title>'
+        expected = '<title>This is a title.</title>'
 
-        title = hr.Title(u"This is a title")
+        title = hr.Title(u"This is a title.")
         f = cStringIO.StringIO()
         title.render(f)
         f.reset()
