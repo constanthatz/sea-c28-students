@@ -54,5 +54,14 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_Hr_SelfClosingTag(self):
+        expected = '<hr />'
+
+        Hr = hr.Hr()
+        f = cStringIO.StringIO()
+        Hr.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
 if __name__ == '__main__':
     unittest.main()
