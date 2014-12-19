@@ -73,5 +73,15 @@ class MyTests(unittest.TestCase):
         f.reset()
         actual = f.read()
         self.assertEquals(expected, actual)
+
+    def test_A(self):
+        expected = '<a href="http://google.com">This is a link.</a>'
+
+        a = hr.A(u"http://google.com", "This is a link.")
+        f = cStringIO.StringIO()
+        a.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
 if __name__ == '__main__':
     unittest.main()
