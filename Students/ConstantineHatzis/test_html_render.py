@@ -23,6 +23,16 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_P(self):
+        expected = '<p>\n</p>'
+
+        p = hr.P()
+        f = cStringIO.StringIO()
+        p.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
     def test_Head(self):
         expected = '<head>\n</head>'
 
