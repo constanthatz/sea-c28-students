@@ -104,5 +104,15 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_Meta(self):
+        expected = '<meta charset="UTF-8"/>'
+
+        meta = hr.Meta(charset=u"UTF-8")
+        f = cStringIO.StringIO()
+        meta.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
 if __name__ == '__main__':
     unittest.main()
