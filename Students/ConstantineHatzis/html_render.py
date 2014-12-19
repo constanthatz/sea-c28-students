@@ -103,15 +103,18 @@ class SelfClosingTag(Element):
 
     def render(self, file_out, ind=indent):
         temp_tags = list(self.tags)
+        print(temp_tags)
         if self.kwargs:
-            list_tag = list(temp_tags[0])
+            list_tag = temp_tags
+            print(list_tag)
 
             for key in self.kwargs:
                 list_tag.insert(-2, u'{}="{}"'.format(key, self.kwargs[key]))
-            temp_tags[0] = "".join(list_tag)
+            print(list_tag)
+            temp_tags = "".join(list_tag)
 
         # Combine the single tag into a list.
-        all_out = [temp_tags[0]]
+        all_out = temp_tags
         file_out.write("".join(all_out))
 
 
