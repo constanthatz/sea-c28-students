@@ -13,6 +13,15 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_Body(self):
+        expected = '<body>\n</body>'
+
+        body = hr.Body()
+        f = cStringIO.StringIO()
+        body.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
 
     def test_Head(self):
         expected = '<head>\n</head>'
