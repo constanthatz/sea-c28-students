@@ -103,14 +103,11 @@ class SelfClosingTag(Element):
 
     def render(self, file_out, ind=indent):
         temp_tags = list(self.tags)
-        print(temp_tags)
         if self.kwargs:
             list_tag = temp_tags
-            print(list_tag)
 
             for key in self.kwargs:
                 list_tag.insert(-2, u'{}="{}"'.format(key, self.kwargs[key]))
-            print(list_tag)
             temp_tags = "".join(list_tag)
 
         # Combine the single tag into a list.
