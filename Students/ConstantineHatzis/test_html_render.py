@@ -94,5 +94,15 @@ class MyTests(unittest.TestCase):
         actual = f.read()
         self.assertEquals(expected, actual)
 
+    def test_H(self):
+        expected = '<h2>PythonClass - Class 6 example</h2>'
+
+        h = hr.H(2, u"PythonClass - Class 6 example")
+        f = cStringIO.StringIO()
+        h.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
 if __name__ == '__main__':
     unittest.main()
