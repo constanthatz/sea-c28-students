@@ -6,9 +6,20 @@ class MyTests(unittest.TestCase):
     def test_Html(self):
         expected = '<!DOCTYPE html>\n<html>\n</html>'
 
-        page = hr.Html()
+        html = hr.Html()
         f = cStringIO.StringIO()
-        page.render(f)
+        html.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
+
+
+    def test_Head(self):
+        expected = '<head>\n</head>'
+
+        head = hr.Head()
+        f = cStringIO.StringIO()
+        head.render(f)
         f.reset()
         actual = f.read()
         self.assertEquals(expected, actual)
