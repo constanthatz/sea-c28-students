@@ -63,5 +63,15 @@ class MyTests(unittest.TestCase):
         f.reset()
         actual = f.read()
         self.assertEquals(expected, actual)
+
+    def test_Ul(self):
+        expected = '<ul style="line-height:200%" id="This is a list">\n</ul>'
+
+        ul = hr.Ul(id=u"This is a list", style=u"line-height:200%")
+        f = cStringIO.StringIO()
+        ul.render(f)
+        f.reset()
+        actual = f.read()
+        self.assertEquals(expected, actual)
 if __name__ == '__main__':
     unittest.main()
